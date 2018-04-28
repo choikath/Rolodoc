@@ -14,6 +14,7 @@
 		12BFB0592093F6AE004A0E40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12BFB0582093F6AE004A0E40 /* Assets.xcassets */; };
 		12BFB05C2093F6AE004A0E40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12BFB05A2093F6AE004A0E40 /* LaunchScreen.storyboard */; };
 		12BFB06820941856004A0E40 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BFB06720941856004A0E40 /* HomeTableViewController.swift */; };
+		12BFB06A2094BDDC004A0E40 /* ConsultRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BFB0692094BDDC004A0E40 /* ConsultRecord.swift */; };
 		9C3D5AD22BC227DD1C70FC09 /* Pods_Rolodoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58B2524D3E037FF63D2B12 /* Pods_Rolodoc.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		12BFB05B2093F6AE004A0E40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12BFB05D2093F6AE004A0E40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12BFB06720941856004A0E40 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTableViewController.swift; path = Rolodoc/Controller/HomeTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		12BFB0692094BDDC004A0E40 /* ConsultRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultRecord.swift; sourceTree = "<group>"; };
 		2D58B2524D3E037FF63D2B12 /* Pods_Rolodoc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rolodoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7748AF12B0EDD5ACE95C9F44 /* Pods-Rolodoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rolodoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc.release.xcconfig"; sourceTree = "<group>"; };
 		9EC65E87DE8AACDAE6153EBC /* Pods-Rolodoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rolodoc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				12BFB0552093F6AC004A0E40 /* Rolodoc.xcdatamodeld */,
+				12BFB0692094BDDC004A0E40 /* ConsultRecord.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				12BFB06820941856004A0E40 /* HomeTableViewController.swift in Sources */,
 				12BFB0512093F6AC004A0E40 /* ViewController.swift in Sources */,
 				12BFB04F2093F6AC004A0E40 /* AppDelegate.swift in Sources */,
+				12BFB06A2094BDDC004A0E40 /* ConsultRecord.swift in Sources */,
 				12BFB0572093F6AC004A0E40 /* Rolodoc.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
