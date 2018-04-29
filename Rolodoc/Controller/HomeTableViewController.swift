@@ -20,36 +20,46 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
     var arrayToLoad = [ConsultRecord]()
     var hospitalSelected = "HUP"  // save settings into plist
     
-    let sections =  ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-
+    let sections =  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    var consultDictionary = [String: [ConsultRecord] ]() // store initial loaded list to restore after searches
+    var searchedDictionary = [String: [ConsultRecord] ]()
+    var dictionaryToLoad = [String: [ConsultRecord] ]()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        SVProgressHUD.show()
         getConsultData(url: ROLODOC_URL)
         tableView.delegate = self
+        
     }
 
 
 
     // MARK: - Table view data source
 
-    /*
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 26
     }
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        
         return self.sections as? [String]
     }
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        
         return index
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sections[section] as? String
     }
-    */
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayToLoad.count
+        if let sublist = dictionaryToLoad[sections[section]] {
+//            print("sublist count: \(sublist.count)")
+            return sublist.count
+        }
+        return 0
     }
 
 
@@ -58,10 +68,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
         var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath)
         cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell")
 
-//        cell.textLabel?.text = consultArray[indexPath.row]["serviceName"]
-        cell.textLabel?.text = arrayToLoad[indexPath.row].name
-        cell.detailTextLabel?.text = arrayToLoad[indexPath.row].descrip
-
+        if let sublist = dictionaryToLoad[sections[indexPath.section]] { //if there are values under each alphabet letter
+            cell.textLabel?.text = sublist[indexPath.row].name
+            cell.detailTextLabel?.text = sublist[indexPath.row].descrip
+        }
         return cell
     }
     
@@ -69,8 +79,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let phoneNum = arrayToLoad[indexPath.row].number
-        print(phoneNum)
+        let phoneNum = dictionaryToLoad[sections[indexPath.section]]![indexPath.row].number
+//        print(phoneNum)
         if let url = URL(string: "tel://\(phoneNum)"), UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url)
@@ -97,14 +107,14 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
             }
             else {
                 print("Error \(response.result.error)")
-//                self.cityLabel.text = "Connection Issues"
+
             }
         }
     }
     
     func updateConsultData(json: JSON) {
         
-        for index in 1...json.count {
+        for index in 0...json.count-1 {
             let consultItem = ConsultRecord()
             
 
@@ -117,38 +127,50 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
-        
-//            consultArray[consultName] = phoneNum
-//
-//            consultDataModel.name = json["name"].stringValue
-//            consultDataModel.number = json["num"]["number"].stringValue
-        
-//        else {
-//            print ("error updating data")
-////            cityLabel.text = "Weather Unavailable"
-//        }
+
         arrayToLoad = consultArray
+        convertToDictionary(arrayToConvert: arrayToLoad)
+        consultDictionary = dictionaryToLoad
+        SVProgressHUD.dismiss()
         tableView.reloadData()
     }
     
+    func convertToDictionary(arrayToConvert: Array<ConsultRecord>) {
+        var tempDictionary = [String: [ConsultRecord] ]()
+        for record in arrayToConvert {
+            if var recordsThisLetter = tempDictionary[String(record.name.prefix(1))] {
+                recordsThisLetter.append(record)
+                tempDictionary[String(record.name.prefix(1))] = recordsThisLetter
+            }
+            else {
+                tempDictionary[String(record.name.prefix(1))] = [record]
+            }
+        }
+        //        print(consultDictionary)
+        dictionaryToLoad = tempDictionary
+    }
     
 
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        print("search bar clicked!")
+        
         let allConsults = consultArray
-        SVProgressHUD.show()
+
         let filteredArray = allConsults.filter() { $0.name.localizedCaseInsensitiveContains(searchBar.text!) }
         
-        arrayToLoad = filteredArray
+        convertToDictionary(arrayToConvert: filteredArray)
+//        arrayToLoad = filteredArray
 //        print(searchBar.text)
+        searchedDictionary = dictionaryToLoad
         tableView.reloadData()
-        SVProgressHUD.dismiss()
+
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            arrayToLoad = consultArray
+//            arrayToLoad = consultArray
+            dictionaryToLoad = consultDictionary
             tableView.reloadData()
             
             DispatchQueue.main.async {  // run in separate thread in foreground 'main'
