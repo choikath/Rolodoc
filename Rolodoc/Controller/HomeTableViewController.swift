@@ -51,15 +51,18 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
         return index
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.tableView(tableView, numberOfRowsInSection: section) == 0 { return nil }
         return self.sections[section] as? String
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sublist = dictionaryToLoad[sections[section]] {
-//            print("sublist count: \(sublist.count)")
+            print("sublist count: \(sublist.count)")
             return sublist.count
         }
+        
         return 0
+        
     }
 
 
