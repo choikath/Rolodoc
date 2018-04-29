@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreData
+import SVProgressHUD
 
 class HomeTableViewController: UITableViewController, UISearchBarDelegate {
 
@@ -54,7 +55,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath)
+        var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath)
+        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell")
 
 //        cell.textLabel?.text = consultArray[indexPath.row]["serviceName"]
         cell.textLabel?.text = arrayToLoad[indexPath.row].name
@@ -62,6 +64,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
 
         return cell
     }
+    
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -103,12 +106,15 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
         
         for index in 1...json.count {
             let consultItem = ConsultRecord()
+            
 
             if json[index]["hosp"].stringValue == hospitalSelected {
             consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
-            consultItem.number = json[index]["num"]["number"].stringValue
-
-            consultArray.append(consultItem)
+                consultItem.descrip = json[index]["descrip"].stringValue
+                consultItem.number = json[index]["num"]["number"].stringValue
+                if consultItem.number != "" {
+                    consultArray.append(consultItem)
+                }
             }
         }
         
@@ -131,11 +137,13 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        print("search bar clicked!")
         let allConsults = consultArray
-        let filteredArray = allConsults.filter() { $0.name.contains(searchBar.text!) }
+        SVProgressHUD.show()
+        let filteredArray = allConsults.filter() { $0.name.localizedCaseInsensitiveContains(searchBar.text!) }
         
         arrayToLoad = filteredArray
 //        print(searchBar.text)
         tableView.reloadData()
+        SVProgressHUD.dismiss()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
