@@ -12,28 +12,60 @@ import SwiftyJSON
 import CoreData
 import SVProgressHUD
 
-class HomeTableViewController: UITableViewController, UISearchBarDelegate {
+protocol ModalHandler {
+    func modalDismissed()
+}
+
+class HomeTableViewController: UITableViewController, UISearchBarDelegate, ModalHandler {
+
+
+    let defaults = UserDefaults.standard
+    let modalVC = EntityPickerViewController()
 
     let ROLODOC_URL = "http://www.pennrolodoc.com/listings.json"
-
-    var consultArray = [ConsultRecord]()
-    var arrayToLoad = [ConsultRecord]()
-    var hospitalSelected = "HUP"  // save settings into plist
+    var consultJsonRef = JSON()
+    var consultArray = [ConsultRecord]()  // saves initial loaded list
+    var arrayToLoad = [ConsultRecord]() // used to toggle load between initial full list, or sublist of search results
+    
+//    var hospitalSelected = "HUP"
     
     let sections =  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     var consultDictionary = [String: [ConsultRecord] ]() // store initial loaded list to restore after searches
     var searchedDictionary = [String: [ConsultRecord] ]()
     var dictionaryToLoad = [String: [ConsultRecord] ]()
-   
+
+//    var currentIndexPath = IndexPath(row: 0, section: 0)
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.show()
         getConsultData(url: ROLODOC_URL)
+        defaults.set("HUP", forKey: "defaultHospital")
         tableView.delegate = self
-        
+
     }
 
+    // Code to play sound with scroll
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if (scrollView.isTracking == true || scrollView.isDragging == true) {
+//             print("scrolling with indexpath: \(currentIndexPath)")
+//            // Find the indexPath of the cell at the center of the tableview
+//            var tableViewCenter = self.tableView.center
+//            tableViewCenter = self.tableView.convert(tableViewCenter, from: self.tableView.superview)
+//            var centerCellIndexPath = tableView.indexPathForRow(at: tableViewCenter)
+//            print(centerCellIndexPath)
+//            // "Tick" if the cell at the center of the table has changed
+//            if (centerCellIndexPath != self.currentIndexPath)
+//            {
+//                NSLog("Tick");
+//                self.currentIndexPath = centerCellIndexPath!;
+//            }
+//
+//        }
+//    }
 
 
     // MARK: - Table view data source
@@ -57,7 +89,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sublist = dictionaryToLoad[sections[section]] {
-            print("sublist count: \(sublist.count)")
+//            print("sublist count: \(sublist.count)")
             return sublist.count
         }
         
@@ -104,6 +136,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
                 print("Success! Got the consult data")
                 
                 let consultJSON : JSON = JSON(response.result.value!) // swiftyjson functionality to wrap into json format.
+                self.consultJsonRef = consultJSON
                 self.updateConsultData(json: consultJSON)  // self refers to this current class, because this block has closure, but trying to call a method outside the current function
                 
                 
@@ -116,17 +149,23 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func updateConsultData(json: JSON) {
+        print("PRINTING NOW: JSON COUNT \(json.count)")
+        print("defaults: \(defaults.string(forKey: "defaultHospital"))")
         
-        for index in 0...json.count-1 {
+        consultArray = []
+        for index in 0...(json.count-1) {
             let consultItem = ConsultRecord()
             
-
-            if json[index]["hosp"].stringValue == hospitalSelected {
-            consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
-                consultItem.descrip = json[index]["descrip"].stringValue
-                consultItem.number = json[index]["num"]["number"].stringValue
-                if consultItem.number != "" {
-                    consultArray.append(consultItem)
+            //check that entity is either in hospital, description, or name of service....
+            if json[index]["hosp"].stringValue == defaults.string(forKey: "defaultHospital")!  ||
+                json[index]["descrip"].stringValue.lowercased().range(of: (defaults.string(forKey: "defaultHospital"))!.lowercased()) != nil ||
+                json[index]["name"].stringValue.lowercased().range(of: (defaults.string(forKey: "defaultHospital"))!.lowercased()) != nil {
+                
+                    consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
+                    consultItem.descrip = json[index]["descrip"].stringValue
+                    consultItem.number = json[index]["num"]["number"].stringValue
+                    if consultItem.number != "" {
+                        consultArray.append(consultItem)
                 }
             }
         }
@@ -180,11 +219,29 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate {
                 searchBar.resignFirstResponder() //nolonger be selected
                 
             }
-            
+        
             
         }
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToEntityPicker" {
+            let modal = segue.destination as! EntityPickerViewController
+            modal.delegate = self
+        }
+    }
+    
+    
+    
+    
+
+    func modalDismissed() {
+        print("consult data is size \(consultJsonRef.count)")
+        updateConsultData(json: consultJsonRef)
+    }
+    
 }
+
 
 

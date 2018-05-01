@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1287200D209668E5004DBD48 /* WhatsHot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1287200C209668E5004DBD48 /* WhatsHot.swift */; };
+		1287200F20966AE9004DBD48 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1287200E20966AE9004DBD48 /* NewsItem.swift */; };
+		128FA49E209690AF00AA032E /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FA49D209690AF00AA032E /* DismissAnimator.swift */; };
+		128FA4A0209690F700AA032E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FA49F209690F700AA032E /* Interactor.swift */; };
+		128FA4A22096D1F100AA032E /* EntityPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FA4A12096D1F100AA032E /* EntityPickerViewController.swift */; };
 		12BFB04F2093F6AC004A0E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BFB04E2093F6AC004A0E40 /* AppDelegate.swift */; };
 		12BFB0512093F6AC004A0E40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BFB0502093F6AC004A0E40 /* ViewController.swift */; };
 		12BFB0542093F6AC004A0E40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12BFB0522093F6AC004A0E40 /* Main.storyboard */; };
@@ -19,6 +24,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1287200C209668E5004DBD48 /* WhatsHot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsHot.swift; sourceTree = "<group>"; };
+		1287200E20966AE9004DBD48 /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		128FA49D209690AF00AA032E /* DismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
+		128FA49F209690F700AA032E /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		128FA4A12096D1F100AA032E /* EntityPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EntityPickerViewController.swift; path = Rolodoc/Controller/EntityPickerViewController.swift; sourceTree = SOURCE_ROOT; };
 		12BFB04B2093F6AC004A0E40 /* Rolodoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rolodoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12BFB04E2093F6AC004A0E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12BFB0502093F6AC004A0E40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +92,7 @@
 			children = (
 				12BFB0552093F6AC004A0E40 /* Rolodoc.xcdatamodeld */,
 				12BFB0692094BDDC004A0E40 /* ConsultRecord.swift */,
+				1287200E20966AE9004DBD48 /* NewsItem.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -97,8 +108,12 @@
 		12BFB0652093F6E6004A0E40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1287200C209668E5004DBD48 /* WhatsHot.swift */,
+				128FA4A12096D1F100AA032E /* EntityPickerViewController.swift */,
 				12BFB06720941856004A0E40 /* HomeTableViewController.swift */,
 				12BFB0502093F6AC004A0E40 /* ViewController.swift */,
+				128FA49D209690AF00AA032E /* DismissAnimator.swift */,
+				128FA49F209690F700AA032E /* Interactor.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -207,12 +222,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMoment/SwiftMoment.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMoment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,10 +263,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				12BFB06820941856004A0E40 /* HomeTableViewController.swift in Sources */,
+				1287200F20966AE9004DBD48 /* NewsItem.swift in Sources */,
+				128FA4A22096D1F100AA032E /* EntityPickerViewController.swift in Sources */,
+				1287200D209668E5004DBD48 /* WhatsHot.swift in Sources */,
+				128FA4A0209690F700AA032E /* Interactor.swift in Sources */,
 				12BFB0512093F6AC004A0E40 /* ViewController.swift in Sources */,
 				12BFB04F2093F6AC004A0E40 /* AppDelegate.swift in Sources */,
 				12BFB06A2094BDDC004A0E40 /* ConsultRecord.swift in Sources */,
 				12BFB0572093F6AC004A0E40 /* Rolodoc.xcdatamodeld in Sources */,
+				128FA49E209690AF00AA032E /* DismissAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
