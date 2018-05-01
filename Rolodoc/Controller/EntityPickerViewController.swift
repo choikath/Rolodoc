@@ -13,6 +13,7 @@ class EntityPickerViewController: UIViewController, UIPickerViewDataSource, UIPi
     let defaults = UserDefaults.standard
     var entities: [String] = [String]()
     var hospitalSelected : String = "HUP"  // save settings into plist
+    var indexSelected : Int = 0
     var delegate: HomeTableViewController?
     
     @IBOutlet weak var popupView: UIView!
@@ -22,12 +23,14 @@ class EntityPickerViewController: UIViewController, UIPickerViewDataSource, UIPi
         super.viewDidLoad()
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
-
-        //        if let row = data.indexOf(hospitalSelected) {
-//            picker.selectRow(row, inComponent: 0, animated: false)
-//        }
-
         entities = ["HUP", "PMC", "PAH", "VA"]
+        
+        
+        if self.isKeyPresentInUserDefaults(key: "indexSelected") {
+            pickerView.selectRow(defaults.integer(forKey: "indexSelected"), inComponent: 0, animated: false)
+        }
+
+        
 //        pickerView.reloadAllComponents()
         popupView.layer.cornerRadius = 20
         popupView.layer.masksToBounds = true
@@ -48,14 +51,14 @@ class EntityPickerViewController: UIViewController, UIPickerViewDataSource, UIPi
     //construct alert window
    
     @IBAction func savePressed(_ sender: UIButton) {
+        
 
-        print("HERE I AM")
-        
-        let hospitalSelected = entities[pickerView.selectedRow(inComponent:0)]
-        
-        print("defaults in entity== \(defaults.string(forKey: "defaultHospital"))")
+        let indexSelected = pickerView.selectedRow(inComponent:0)
+        let hospitalSelected = entities[indexSelected]
+//        print("defaults in entity== \(defaults.string(forKey: "defaultHospital"))")
         
         defaults.set(hospitalSelected, forKey: "defaultHospital")
+        defaults.set(indexSelected, forKey: "indexSelected")
         self.dismiss(animated: true) {
             self.delegate?.modalDismissed()
         }
@@ -66,7 +69,7 @@ class EntityPickerViewController: UIViewController, UIPickerViewDataSource, UIPi
    
     
 
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -80,9 +83,16 @@ class EntityPickerViewController: UIViewController, UIPickerViewDataSource, UIPi
         return 1
     }
     
+
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+
+    
 //    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
 //        let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.blue : UIColor.black
-//        return NSAttributedString(string: self.model[row], attributes: [NSForegroundColorAttributeName: color])
+//        return NSAttributedString(string: entities[row], attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: color])
 //    }
 
 }

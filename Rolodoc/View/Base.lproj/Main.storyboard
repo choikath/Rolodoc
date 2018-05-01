@@ -134,7 +134,6 @@
                                         <constraints>
                                             <constraint firstItem="jvQ-Vj-Ntf" firstAttribute="top" secondItem="plq-CS-VQm" secondAttribute="bottom" id="0gg-to-VaD"/>
                                             <constraint firstItem="Bk0-dK-PZz" firstAttribute="top" secondItem="jvQ-Vj-Ntf" secondAttribute="bottom" id="7eK-Br-2IL"/>
-                                            <constraint firstItem="plq-CS-VQm" firstAttribute="top" secondItem="2Tq-nW-y8Q" secondAttribute="top" constant="20" symbolic="YES" id="DYA-i0-fTk"/>
                                             <constraint firstItem="jvQ-Vj-Ntf" firstAttribute="top" secondItem="plq-CS-VQm" secondAttribute="bottom" id="J3q-fw-m0M"/>
                                             <constraint firstItem="plq-CS-VQm" firstAttribute="leading" secondItem="2Tq-nW-y8Q" secondAttribute="leading" id="SOW-LY-uCp"/>
                                             <constraint firstAttribute="trailing" secondItem="plq-CS-VQm" secondAttribute="trailing" id="dIQ-UT-5jE"/>
@@ -194,10 +193,10 @@
                                         <outletCollection property="gestureRecognizers" destination="deW-kh-ZZg" appends="YES" id="BfL-6S-hpn"/>
                                     </connections>
                                 </imageView>
-                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O9R-7o-PLf" userLabel="buttonContainer">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9R-7o-PLf" userLabel="buttonContainer">
                                     <rect key="frame" x="243" y="8" width="132" height="66"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btv-T9-dYn">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btv-T9-dYn">
                                             <rect key="frame" x="66" y="0.0" width="66" height="66"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="66" id="Upu-GY-tHn"/>
@@ -206,7 +205,7 @@
                                                 <action selector="closeModal:" destination="TRM-ja-UBE" eventType="touchUpInside" id="eE4-Sp-r10"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yac-jy-lmD">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yac-jy-lmD">
                                             <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                             <connections>
                                                 <action selector="hfPressed:" destination="TRM-ja-UBE" eventType="touchUpInside" id="5zo-l4-stE"/>
@@ -234,6 +233,7 @@
                                 <constraint firstAttribute="trailing" secondItem="mkx-9e-4Q3" secondAttribute="trailing" id="ar3-WW-x5p"/>
                                 <constraint firstItem="O9R-7o-PLf" firstAttribute="top" secondItem="ojt-oS-7Vv" secondAttribute="top" constant="8" id="b3J-Ng-yW4"/>
                                 <constraint firstItem="mkx-9e-4Q3" firstAttribute="top" secondItem="ojt-oS-7Vv" secondAttribute="top" id="be5-VO-W8K"/>
+                                <constraint firstAttribute="trailing" secondItem="O9R-7o-PLf" secondAttribute="trailing" id="hYK-vd-Wdm"/>
                             </constraints>
                         </view>
                         <prototypes>

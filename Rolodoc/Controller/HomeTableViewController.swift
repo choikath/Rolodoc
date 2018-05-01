@@ -18,16 +18,15 @@ protocol ModalHandler {
 
 class HomeTableViewController: UITableViewController, UISearchBarDelegate, ModalHandler {
 
-
     let defaults = UserDefaults.standard
     let modalVC = EntityPickerViewController()
 
     let ROLODOC_URL = "http://www.pennrolodoc.com/listings.json"
-    var consultJsonRef = JSON()
+    var consultJsonRef = JSON() // saves full initial loaded json so can be refiltered when new entity selected.
     var consultArray = [ConsultRecord]()  // saves initial loaded list
     var arrayToLoad = [ConsultRecord]() // used to toggle load between initial full list, or sublist of search results
     
-//    var hospitalSelected = "HUP"
+    var hospitalSelected: String = "HUP"
     
     let sections =  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     var consultDictionary = [String: [ConsultRecord] ]() // store initial loaded list to restore after searches
@@ -43,7 +42,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         super.viewDidLoad()
         SVProgressHUD.show()
         getConsultData(url: ROLODOC_URL)
-        defaults.set("HUP", forKey: "defaultHospital")
+//        defaults.set("HUP", forKey: "defaultHospital")
         tableView.delegate = self
 
     }
@@ -76,7 +75,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     }
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         
-        return self.sections as? [String]
+        return self.sections as [String]
     }
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         
@@ -84,7 +83,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if self.tableView(tableView, numberOfRowsInSection: section) == 0 { return nil }
-        return self.sections[section] as? String
+        return self.sections[section] as String
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -142,24 +141,28 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
                 
             }
             else {
-                print("Error \(response.result.error)")
+                print("Error \(String(describing: response.result.error))")
 
             }
         }
     }
     
     func updateConsultData(json: JSON) {
-        print("PRINTING NOW: JSON COUNT \(json.count)")
-        print("defaults: \(defaults.string(forKey: "defaultHospital"))")
+        
+        // Check whether default has ever been set using picker, otherwise fall back on HUP
+        if isKeyPresentInUserDefaults(key: "defaultHospital") {
+            hospitalSelected = defaults.string(forKey: "defaultHospital")!
+        } else { hospitalSelected = "HUP" }
         
         consultArray = []
         for index in 0...(json.count-1) {
             let consultItem = ConsultRecord()
             
-            //check that entity is either in hospital, description, or name of service....
-            if json[index]["hosp"].stringValue == defaults.string(forKey: "defaultHospital")!  ||
-                json[index]["descrip"].stringValue.lowercased().range(of: (defaults.string(forKey: "defaultHospital"))!.lowercased()) != nil ||
-                json[index]["name"].stringValue.lowercased().range(of: (defaults.string(forKey: "defaultHospital"))!.lowercased()) != nil {
+            //filter list by entity
+            //check that entity is contained either in hospital, description, or name of service....
+            if json[index]["hosp"].stringValue == hospitalSelected  ||
+                json[index]["descrip"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil ||
+                json[index]["name"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil {
                 
                     consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
                     consultItem.descrip = json[index]["descrip"].stringValue
@@ -225,6 +228,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     }
     
     
+    //MARK: Functions to link entity picker modal and this view controller -- sets self as delegate so that entity selected can be linked to a reload of list.
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToEntityPicker" {
             let modal = segue.destination as! EntityPickerViewController
@@ -232,13 +237,15 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         }
     }
     
-    
-    
-    
-
+// called at completion of "save" button being pressed in entity picker modal, prompts reload of new filtered list by new entity
     func modalDismissed() {
-        print("consult data is size \(consultJsonRef.count)")
         updateConsultData(json: consultJsonRef)
+    }
+    
+    
+    //check if no default hospital has yet been set -- so can fallback on "HUP" in updateConsultData method
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
     
 }
