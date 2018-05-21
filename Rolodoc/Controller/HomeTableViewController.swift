@@ -11,6 +11,8 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 import SVProgressHUD
+import SwipeCellKit
+import ChameleonFramework
 
 protocol ModalHandler {
     func modalDismissed()
@@ -44,6 +46,13 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         getConsultData(url: ROLODOC_URL)
 //        defaults.set("HUP", forKey: "defaultHospital")
         tableView.delegate = self
+        tableView.rowHeight = 80.0
+        
+        
+        // dismiss keyboard if click anywhere else on screen
+        let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
 
     }
 
@@ -99,9 +108,11 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath)
-        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell")
-
+        var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath) as! SwipeTableViewCell
+        
+//        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
+        cell.delegate = self
+        
         if let sublist = dictionaryToLoad[sections[indexPath.section]] { //if there are values under each alphabet letter
             cell.textLabel?.text = sublist[indexPath.row].name
             cell.detailTextLabel?.text = sublist[indexPath.row].descrip
@@ -113,15 +124,15 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let phoneNum = dictionaryToLoad[sections[indexPath.section]]![indexPath.row].number
-//        print(phoneNum)
-        if let url = URL(string: "tel://\(phoneNum)"), UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
+//        let phoneNum = dictionaryToLoad[sections[indexPath.section]]![indexPath.row].number
+////        print(phoneNum)
+//        if let url = URL(string: "tel://\(phoneNum)"), UIApplication.shared.canOpenURL(url) {
+//            if #available(iOS 10, *) {
+//                UIApplication.shared.open(url)
+//            } else {
+//                UIApplication.shared.openURL(url)
+//            }
+//        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -203,7 +214,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         let allConsults = consultArray
 
         let filteredArray = allConsults.filter() { $0.name.localizedCaseInsensitiveContains(searchBar.text!) }
-        
+        searchBar.resignFirstResponder()
         convertToDictionary(arrayToConvert: filteredArray)
 //        arrayToLoad = filteredArray
 //        print(searchBar.text)
@@ -235,6 +246,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
             let modal = segue.destination as! EntityPickerViewController
             modal.delegate = self
         }
+        
+        if segue.identifier == "goToTextPage" {
+            let modal = segue.destination as! TextPageViewController
+            modal.delegate = self
+            modal.consultNum = "614-397-2666"
+        }
     }
     
 // called at completion of "save" button being pressed in entity picker modal, prompts reload of new filtered list by new entity
@@ -242,13 +259,80 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         updateConsultData(json: consultJsonRef)
     }
     
+
     
     //check if no default hospital has yet been set -- so can fallback on "HUP" in updateConsultData method
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
     }
     
+    
+    
+    @IBAction func endEditing(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
 }
 
+//MARK: Swipe Cell Delegate Methods
 
+extension HomeTableViewController: SwipeTableViewCellDelegate {
+//    public static var selection: SwipeExpansionStyle
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let textpageAction = SwipeAction(style: .default, title: "TextPage") { action, indexPath in
+            // handle action by updating model with seletion
+            
+            self.performSegue(withIdentifier: "goToTextPage", sender: self)
+            }
+        
+        
+        let callAction = SwipeAction(style: .default, title: "Call") { action, indexPath in
+            // handle action by updating model with seletion
+            
+            let phoneNum = self.dictionaryToLoad[self.sections[indexPath.section]]![indexPath.row].number
+            //        print(phoneNum)
+            if let url = URL(string: "tel://\(phoneNum)"), UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }
+        
+        let favoriteAction = SwipeAction(style: .default, title: "Favorite") { action, indexPath in
+            // handle action by updating model with deletion
+            print("this is my favorite!")
+        }
+        
+        // customize the action appearance
+        textpageAction.image = UIImage(named: "text-icon")
+        textpageAction.backgroundColor = UIColor.flatYellowColorDark()
+        
+        callAction.image = UIImage(named: "phone-icon")
+        callAction.backgroundColor = UIColor.flatRed()
+        
+        favoriteAction.image = UIImage(named: "star-icon")
+        favoriteAction.backgroundColor = UIColor.flatMagenta()
+        
+        return [textpageAction, callAction, favoriteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+        var options = SwipeTableOptions()
+//        options.expansionStyle = .default
+        options.transitionStyle = .border
+        return options
+    }
+    
+//    func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+//        if (segue.identifier == "goToTextPage") {
+//            // pass data to next view
+//            
+//        }
+//    }
+}
 

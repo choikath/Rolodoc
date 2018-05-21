@@ -10,12 +10,19 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import SwiftMoment
+//import TwitterKit
+//import SwipeCellKit
 
 class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
 
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
     
+    var bearer_token = "AAAAAAAAAAAAAAAAAAAAAMm36AAAAAAAyEHmkBjeeAUTWwdSx7c59RUjYJY%3DBVswM5I7FY88Rf2nyW4lCYXkNzJm8V7ijyrOPS0FhR6aCuZ9po"
+//    var newsUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json?pennbatphone=twitterapi&count=20"
     var newsUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=fc3681bdcfe74a8ca761dbf9a0d46635"
+    
+
+    
     var newsArray = [NewsItem]()
     
    
@@ -110,8 +117,13 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
     //Write the getNewsData method here:
     func getNewsData(url: String) {
         
-        Alamofire.request(url, method: .get).responseJSON {  // makes the request in the background asynchronously
-            response in
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer " + bearer_token
+        ]
+        
+//        Alamofire.request(url, method: .get, headers: headers).responseJSON {  // makes the request in the background asynchronously
+        Alamofire.request(url, method: .get).responseJSON {
+        response in
             if response.result.isSuccess {
                 print("Success! Got the news data")
                 
@@ -131,18 +143,30 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
         
 //        print("json: \(json)")
 
-        for index in 0...(json["totalResults"].intValue-1) {
+//        for index in 0...(json["totalResults"].intValue-1) {
+       
+//
+//            var newsItem = NewsItem()
+//            newsItem.title = json["articles"][index]["title"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
+//            newsItem.description = json["articles"][index]["description"].stringValue
+//            newsItem.source = json["articles"][index]["source"]["name"].stringValue
+//            newsItem.urlToImage = json["articles"][index]["urlToImage"].stringValue
+//            newsArray.append(newsItem)
+//
+//
+//
+//        }
+                print(json)
+         for index in 0...19 {
             
-            var newsItem = NewsItem()
-            newsItem.title = json["articles"][index]["title"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
-            newsItem.description = json["articles"][index]["description"].stringValue
+            let newsItem = NewsItem()
+                newsItem.title = json["articles"][index]["title"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
+                newsItem.description = json["articles"][index]["description"].stringValue
             newsItem.source = json["articles"][index]["source"]["name"].stringValue
-            newsItem.urlToImage = json["articles"][index]["urlToImage"].stringValue
-            newsArray.append(newsItem)
-
+             newsItem.urlToImage = json["articles"][index]["urlToImage"].stringValue
             
+                newsArray.append(newsItem)
         }
-
 //        SVProgressHUD.dismiss()
         tableView.reloadData()
     }

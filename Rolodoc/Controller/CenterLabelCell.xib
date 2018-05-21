@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CenterLabelCell" customModule="Rolodoc" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="centerLabelCell" id="KGk-i7-Jjw" customClass="CenterLabelCell" customModule="Rolodoc" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="z2P-eO-7J8">
+                        <rect key="frame" x="11" y="6" width="299" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="n31-1D-Kf3"/>
+                        </constraints>
+                        <segments>
+                            <segment title="New Consult"/>
+                            <segment title="Follow-up or Question"/>
+                        </segments>
+                        <color key="tintColor" red="0.95294117647058818" green="0.68235294117647061" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <action selector="consultTypeSelected:" destination="KGk-i7-Jjw" eventType="valueChanged" id="TY2-z1-G9I"/>
+                        </connections>
+                    </segmentedControl>
+                </subviews>
+                <color key="backgroundColor" red="0.66274509803921566" green="0.66274509803921566" blue="0.66274509803921566" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="z2P-eO-7J8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Nz5-Hj-JEL"/>
+                    <constraint firstItem="z2P-eO-7J8" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="zOb-n0-QJ2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="consultType" destination="z2P-eO-7J8" id="AxA-Tv-e72"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
