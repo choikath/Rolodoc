@@ -10,7 +10,7 @@ import UIKit
 
 class TextPageViewController: UITableViewController, UITextViewDelegate {
 
-    var consultNum: String = ""
+    var consultRecord: ConsultRecord!
     var delegate: HomeTableViewController?
     
     @IBAction func cancelTextPage(_ sender: Any) {
@@ -63,9 +63,11 @@ class TextPageViewController: UITableViewController, UITextViewDelegate {
 
             let cell = messageTableView.dequeueReusableCell(withIdentifier: "profileLabelCell", for: indexPath) as! ProfileLabelCell  // since our cell is a custom data type
             
-            cell.titleLabel.text = "Cardiology"
-            cell.providerLabel.text = "Sri Adusumalli, MD"
-            cell.updatedAtLabel.text = "24 minutes ago"
+            cell.titleLabel.text = consultRecord.name//"Cardiology"
+            cell.providerLabel.text = consultRecord.consultant //"Sri Adusumalli, MD"
+            if consultRecord.last_updated != "" {
+                cell.updatedAtLabel.text = "Last updated " + consultRecord.last_updated + " ago" //"24 minutes ago"
+            } else { cell.updatedAtLabel.text = "" }
             return cell
         }
         if indexPath.row == 1 {

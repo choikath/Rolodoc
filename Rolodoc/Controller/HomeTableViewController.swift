@@ -34,6 +34,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     var consultDictionary = [String: [ConsultRecord] ]() // store initial loaded list to restore after searches
     var searchedDictionary = [String: [ConsultRecord] ]()
     var dictionaryToLoad = [String: [ConsultRecord] ]()
+    var selectedRecord = ConsultRecord()
 
 //    var currentIndexPath = IndexPath(row: 0, section: 0)
     
@@ -108,7 +109,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath) as! SwipeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath) as! SwipeTableViewCell
         
 //        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
         cell.delegate = self
@@ -116,11 +117,15 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         if let sublist = dictionaryToLoad[sections[indexPath.section]] { //if there are values under each alphabet letter
             cell.textLabel?.text = sublist[indexPath.row].name
             cell.detailTextLabel?.text = sublist[indexPath.row].descrip
+//            cell.phoneNum.text = sublist[indexPath.row].number
         }
         return cell
     }
     
-    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath {
+        self.selectedRecord = self.dictionaryToLoad[self.sections[indexPath.section]]![indexPath.row]
+        return indexPath
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -133,6 +138,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //                UIApplication.shared.openURL(url)
 //            }
 //        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -178,6 +184,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
                     consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
                     consultItem.descrip = json[index]["descrip"].stringValue
                     consultItem.number = json[index]["num"]["number"].stringValue
+                    consultItem.consultant = json[index]["num"]["consultant"].stringValue
+                    consultItem.instruc = json[index]["instruc"].stringValue
+                    consultItem.last_updated = json[index]["last_updated"].stringValue
+                
                     if consultItem.number != "" {
                         consultArray.append(consultItem)
                 }
@@ -248,9 +258,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         }
         
         if segue.identifier == "goToTextPage" {
+//            print("textpage sender :  + \(sender)")
+            // sender is a homeview controller instance
             let modal = segue.destination as! TextPageViewController
             modal.delegate = self
-            modal.consultNum = "614-397-2666"
+            modal.consultRecord = selectedRecord
+
         }
     }
     
@@ -283,7 +296,9 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
         guard orientation == .right else { return nil }
         
         let textpageAction = SwipeAction(style: .default, title: "TextPage") { action, indexPath in
-            // handle action by updating model with seletion
+            // handle action by updating model with selection
+            
+            self.selectedRecord = self.dictionaryToLoad[self.sections[indexPath.section]]![indexPath.row]
             
             self.performSegue(withIdentifier: "goToTextPage", sender: self)
             }
@@ -331,8 +346,12 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
 //    func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
 //        if (segue.identifier == "goToTextPage") {
 //            // pass data to next view
-//            
+//            let destinationVC = segue.destination as! ToDoListViewController
+//
+//            if let indexPath = messageTableView.indexPathForSelectedRow {
+//                destinationVC.selectedCategory = categoryArray?[indexPath.row]
+//            }
 //        }
-//    }
+    
 }
 
