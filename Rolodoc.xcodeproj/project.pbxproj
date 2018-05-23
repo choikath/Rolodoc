@@ -17,6 +17,8 @@
 		1251CAFF20B3420600268245 /* ProfileFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1251CAFD20B3420600268245 /* ProfileFieldCell.xib */; };
 		1251CB0220B3AD3A00268245 /* ConsultListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1251CB0020B3AD3A00268245 /* ConsultListingCell.swift */; };
 		1251CB0320B3AD3A00268245 /* ConsultListingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1251CB0120B3AD3A00268245 /* ConsultListingCell.xib */; };
+		1251CB0520B471CC00268245 /* done_button.json in Resources */ = {isa = PBXBuildFile; fileRef = 1251CB0420B471CB00268245 /* done_button.json */; };
+		1251CB0720B5A7FB00268245 /* checked_done_.json in Resources */ = {isa = PBXBuildFile; fileRef = 1251CB0620B5A7FB00268245 /* checked_done_.json */; };
 		1287200D209668E5004DBD48 /* WhatsHot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1287200C209668E5004DBD48 /* WhatsHot.swift */; };
 		1287200F20966AE9004DBD48 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1287200E20966AE9004DBD48 /* NewsItem.swift */; };
 		128FA49E209690AF00AA032E /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FA49D209690AF00AA032E /* DismissAnimator.swift */; };
@@ -44,6 +46,8 @@
 		1251CAFD20B3420600268245 /* ProfileFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileFieldCell.xib; sourceTree = "<group>"; };
 		1251CB0020B3AD3A00268245 /* ConsultListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultListingCell.swift; sourceTree = "<group>"; };
 		1251CB0120B3AD3A00268245 /* ConsultListingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConsultListingCell.xib; sourceTree = "<group>"; };
+		1251CB0420B471CB00268245 /* done_button.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = done_button.json; sourceTree = "<group>"; };
+		1251CB0620B5A7FB00268245 /* checked_done_.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = checked_done_.json; sourceTree = "<group>"; };
 		1287200C209668E5004DBD48 /* WhatsHot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsHot.swift; sourceTree = "<group>"; };
 		1287200E20966AE9004DBD48 /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		128FA49D209690AF00AA032E /* DismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 		12BFB0662093F6F6004A0E40 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1251CB0620B5A7FB00268245 /* checked_done_.json */,
+				1251CB0420B471CB00268245 /* done_button.json */,
 				12BFB0582093F6AE004A0E40 /* Assets.xcassets */,
 				12BFB05A2093F6AE004A0E40 /* LaunchScreen.storyboard */,
 			);
@@ -235,12 +241,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				12BFB05C2093F6AE004A0E40 /* LaunchScreen.storyboard in Resources */,
+				1251CB0520B471CC00268245 /* done_button.json in Resources */,
 				12BFB0592093F6AE004A0E40 /* Assets.xcassets in Resources */,
 				1251CAFF20B3420600268245 /* ProfileFieldCell.xib in Resources */,
 				1251CAF920B11C4800268245 /* CenterLabelCell.xib in Resources */,
 				1251CB0320B3AD3A00268245 /* ConsultListingCell.xib in Resources */,
 				12BFB0542093F6AC004A0E40 /* Main.storyboard in Resources */,
 				1251CAF220B1184500268245 /* ProfileLabelCell.xib in Resources */,
+				1251CB0720B5A7FB00268245 /* checked_done_.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +271,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftMoment/SwiftMoment.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -275,6 +284,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMoment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

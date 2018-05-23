@@ -7,17 +7,21 @@
 
 import UIKit
 //import Former
+import MessageUI
+import Lottie
+import ChameleonFramework
 
-class TextPageViewController: UITableViewController, UITextViewDelegate {
+
+class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
     var consultRecord: ConsultRecord!
     var delegate: HomeTableViewController?
     
-    @IBAction func cancelTextPage(_ sender: Any) {
-        self.dismiss(animated: true) {
-            print("closing textpage modal")
-        }
-    }
+   
     
     @IBOutlet var messageTableView: UITableView!
     
@@ -164,6 +168,45 @@ class TextPageViewController: UITableViewController, UITextViewDelegate {
 //        messageTableView.rowHeight = UITableViewAutomaticDimension
 //        messageTableView.estimatedRowHeight = 400.0
 //    }
+    
+    
+    @IBAction func cancelTextPage(_ sender: Any) {
+        self.dismiss(animated: true) {
+            print("closing textpage modal")
+        }
+    }
+    
+    
+    // send the saved draft in realm
+    @IBAction func sendTextPage(_ sender: Any) {
+        
+        
+        let animationView = LOTAnimationView(name: "checked_done_")
+        self.view.addSubview(animationView)
+        animationView.frame.size.width = UIScreen.main.bounds.width
+        animationView.frame.size.height = UIScreen.main.bounds.width
+//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 8.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 1.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 2.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 3.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 4.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        
+//        print(animationView.logHierarchyKeypaths())
+        
+        animationView.play{ (finished) in
+            print("lottie played")
+            animationView.removeFromSuperview()
+
+        }
+        
+        if (MFMessageComposeViewController.canSendText()) {
+            let controller = MFMessageComposeViewController()
+            controller.body = "HI THIS IS A CONSULT"
+            controller.recipients = [consultRecord.number]
+            controller.messageComposeDelegate = self
+            self.present(controller, animated: true, completion: nil)
+        }
+    }
 
     
 }

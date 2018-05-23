@@ -28,7 +28,7 @@
                             <segment title="New Consult"/>
                             <segment title="Follow-up or Question"/>
                         </segments>
-                        <color key="tintColor" red="0.95294117647058818" green="0.68235294117647061" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.96470588239999999" green="0.015686274510000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
                             <action selector="consultTypeSelected:" destination="KGk-i7-Jjw" eventType="valueChanged" id="TY2-z1-G9I"/>
                         </connections>
