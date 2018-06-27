@@ -260,7 +260,9 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         if segue.identifier == "goToTextPage" {
 //            print("textpage sender :  + \(sender)")
             // sender is a homeview controller instance
-            let modal = segue.destination as! TextPageViewController
+            
+            let navVC = segue.destination as! UINavigationController
+            let modal = navVC.viewControllers.first as! TextPageViewController
             modal.delegate = self
             modal.consultRecord = selectedRecord
 
@@ -325,13 +327,13 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
         
         // customize the action appearance
         textpageAction.image = UIImage(named: "text-icon")
-        textpageAction.backgroundColor = UIColor.flatYellowColorDark()
+        textpageAction.backgroundColor = UIColor(hexString: "7BB342")
         
         callAction.image = UIImage(named: "phone-icon")
-        callAction.backgroundColor = UIColor.flatRed()
+        callAction.backgroundColor = UIColor(hexString: "C0CB33")
         
         favoriteAction.image = UIImage(named: "star-icon")
-        favoriteAction.backgroundColor = UIColor.flatMagenta()
+        favoriteAction.backgroundColor = UIColor(hexString: "E4C441")
         
         return [textpageAction, callAction, favoriteAction]
     }

@@ -125,7 +125,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
             return CGFloat(400.0)
         }
         else {
-            return CGFloat(600.0)
+            return CGFloat(100.0)
         }
         
     }
@@ -170,6 +170,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
 //    }
     
     
+    @IBAction func backNavPressed(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true)
+    }
+    
     @IBAction func cancelTextPage(_ sender: Any) {
         self.dismiss(animated: true) {
             print("closing textpage modal")
@@ -190,7 +194,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
 //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 2.Ellipse 1.Fill 1.Color", atFrame: 0)
 //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 3.Ellipse 1.Fill 1.Color", atFrame: 0)
 //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 4.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        
+//
 //        print(animationView.logHierarchyKeypaths())
         
         animationView.play{ (finished) in

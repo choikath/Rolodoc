@@ -39,7 +39,7 @@
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <segue destination="HHU-7v-Uhm" kind="presentation" identifier="goToTextPage" id="wIs-tN-6BZ"/>
+                                    <segue destination="4pT-fV-58V" kind="presentation" identifier="goToTextPage" id="d4j-mD-H8j"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -73,7 +73,7 @@
             </objects>
             <point key="canvasLocation" x="703.20000000000005" y="-280.20989505247377"/>
         </scene>
-        <!--Text Page View Controller-->
+        <!--Compose-->
         <scene sceneID="gjL-cK-gsw">
             <objects>
                 <tableViewController id="HHU-7v-Uhm" customClass="TextPageViewController" customModule="Rolodoc" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,12 +81,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="rZG-hz-fcK">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                         <stackView key="tableFooterView" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" id="9dA-mm-1LX">
-                            <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1sw-3J-8Vy">
@@ -106,7 +102,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b83-rP-T37">
                                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
-                                            <color key="backgroundColor" red="0.96470588239999999" green="0.015686274510000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.4823529412" green="0.70196078429999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="A2Z-Om-Y7L"/>
                                             </constraints>
@@ -123,7 +119,7 @@
                         </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FormCell" id="tEj-UH-vfQ">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tEj-UH-vfQ" id="weo-lu-ctC">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -136,13 +132,21 @@
                             <outlet property="delegate" destination="HHU-7v-Uhm" id="hzb-Oq-b7X"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Compose" id="MMu-Yw-oLy">
+                        <barButtonItem key="leftBarButtonItem" title="Back" image="back-icon" id="1AR-7E-eXf">
+                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="backNavPressed:" destination="HHU-7v-Uhm" id="V4c-El-tzE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="messageTableView" destination="jHh-Rz-JTN" id="jd4-LI-HyW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PR9-WG-QYQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1732" y="533.88305847076469"/>
+            <point key="canvasLocation" x="2671.1999999999998" y="470.91454272863569"/>
         </scene>
         <!--Select Entity-->
         <scene sceneID="6AJ-Wz-HEi">
@@ -385,10 +389,33 @@
             </objects>
             <point key="canvasLocation" x="-248" y="-280"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ggw-wf-FzD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4pT-fV-58V" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5z0-Rd-the">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.4823529411764706" green="0.70196078431372544" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HHU-7v-Uhm" kind="relationship" relationship="rootViewController" id="Ba0-Ik-SaO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P4R-M8-lmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="470.91454272863569"/>
+        </scene>
     </scenes>
     <resources>
         <image name="New" width="25" height="25"/>
         <image name="Settings.png" width="25" height="25"/>
+        <image name="back-icon" width="25" height="25"/>
         <image name="send-icon" width="25" height="25"/>
         <image name="whatshotheader" width="683" height="288"/>
     </resources>
