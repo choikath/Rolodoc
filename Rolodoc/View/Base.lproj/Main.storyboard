@@ -56,13 +56,16 @@
                                 <segue destination="ZOh-a4-928" kind="presentation" identifier="goToEntityPicker" modalTransitionStyle="crossDissolve" id="Q17-d9-BeA"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="New" id="lCg-Jd-VKR">
+                        <barButtonItem key="rightBarButtonItem" tag="1" title="NewButton" image="Instagram" id="lCg-Jd-VKR">
                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="TRM-ja-UBE" kind="presentation" id="qrZ-oH-IY7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="NewButton" destination="lCg-Jd-VKR" id="EtH-bI-7tk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5n7-sP-QFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="Gux-B7-ClM">
@@ -102,7 +105,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b83-rP-T37">
                                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
-                                            <color key="backgroundColor" red="0.4823529412" green="0.70196078429999997" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.1647058824" green="0.71372549019999998" blue="0.066666666669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="A2Z-Om-Y7L"/>
                                             </constraints>
@@ -376,7 +379,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hds-Qc-XmC">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.9137254901960784" green="0.14117647058823529" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.28516288851853805" green="0.28657693340627233" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
@@ -397,7 +400,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5z0-Rd-the">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.4823529411764706" green="0.70196078431372544" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.1647058824" green="0.71372549019999998" blue="0.066666666669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
@@ -413,7 +416,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="New" width="25" height="25"/>
+        <image name="Instagram" width="26" height="26"/>
         <image name="Settings.png" width="25" height="25"/>
         <image name="back-icon" width="25" height="25"/>
         <image name="send-icon" width="25" height="25"/>

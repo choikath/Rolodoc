@@ -12,7 +12,7 @@ final class ProfileLabelCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var providerLabel: UILabel!
+    @IBOutlet weak var providerLabel: UITextView!
     
     @IBOutlet weak var updatedAtLabel: UILabel!
 

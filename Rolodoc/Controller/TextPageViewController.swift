@@ -32,7 +32,6 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
         messageTableView.delegate = self
         messageTableView.dataSource = self
         
-        
         //TODO: Register your MessageCell.xib file here:
         messageTableView.register(UINib(nibName: "ProfileLabelCell", bundle: nil), forCellReuseIdentifier: "profileLabelCell")
         print("profilelabelcell registered!")
@@ -45,6 +44,9 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
 
         
         messageTableView.separatorStyle = .none
+        messageTableView.rowHeight = UITableViewAutomaticDimension
+        messageTableView.estimatedRowHeight = 100
+       
         
 //        configureTableView()
 //        self.messageTableView.reloadData()
@@ -66,12 +68,21 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
             print("indexpath 0!")
 
             let cell = messageTableView.dequeueReusableCell(withIdentifier: "profileLabelCell", for: indexPath) as! ProfileLabelCell  // since our cell is a custom data type
+            cell.titleLabel.text = consultRecord.name //"Cardiology"
+           
             
-            cell.titleLabel.text = consultRecord.name//"Cardiology"
-            cell.providerLabel.text = consultRecord.consultant //"Sri Adusumalli, MD"
-            if consultRecord.last_updated != "" {
-                cell.updatedAtLabel.text = "Last updated " + consultRecord.last_updated + " ago" //"24 minutes ago"
-            } else { cell.updatedAtLabel.text = "" }
+           let startnum = consultRecord.number.index(consultRecord.number.startIndex, offsetBy: 3)
+           let endnum = consultRecord.number.index(consultRecord.number.startIndex, offsetBy: 6)
+
+            cell.providerLabel.text = "\(consultRecord.number.prefix(3))" + "-\(consultRecord.number[startnum..<endnum])-\(consultRecord.number.suffix(4))  " + consultRecord.consultant  //"Sri Adusumalli, MD"
+//            if consultRecord.last_updated != "" {
+//                cell.updatedAtLabel.text = "Last updated " + consultRecord.last_updated + " ago" //"24 minutes ago"
+//            } else { cell.updatedAtLabel.text = "" }
+            
+            cell.updatedAtLabel.text = consultRecord.descrip //"24 minutes ago"
+            
+            
+            
             return cell
         }
         if indexPath.row == 1 {
@@ -88,6 +99,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
             cell.titleLabel.text = "Blg and Room # "
             cell.textField.placeholder = "e.g. Rhodes #309a"
             cell.consultLabel.text = "Message: "
+            cell.consultText.text = "Hey hey"
             cell.consultText.delegate = self as! UITextViewDelegate
             
 //            cell.consultText.text = "Ask a question"
@@ -101,6 +113,8 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
         }
         else {return cell}
     }
+    
+
     
     //TODO: - number of rows in section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,10 +130,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return CGFloat(80.0)
+            return CGFloat(175.0)
         }
         if indexPath.row == 1 {
-            return CGFloat(100.0)
+            return CGFloat(60.0)
         }
         if indexPath.row == 2 {
             return CGFloat(400.0)
