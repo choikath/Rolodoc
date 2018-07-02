@@ -13,6 +13,7 @@ import CoreData
 import SVProgressHUD
 import SwipeCellKit
 import ChameleonFramework
+import Drift
 
 protocol ModalHandler {
     func modalDismissed()
@@ -30,7 +31,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     var hospitalSelected: String = "HUP"
     
-    let sections =  ["Consults", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    let sections =  ["Cx", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     var consultDictionary = [String: [ConsultRecord] ]() // store initial loaded list to restore after searches
     var searchedDictionary = [String: [ConsultRecord] ]()
     var dictionaryToLoad = [String: [ConsultRecord] ]()
@@ -52,9 +53,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         
         
         // dismiss keyboard if click anywhere else on screen
-        let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(HomeTableViewController.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        Drift.load()
         
     }
     
@@ -190,8 +192,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //                print(consultItem.descrip)
                     consultItem.number = json[index]["num"]["number"].stringValue
                     consultItem.consultant = json[index]["num"]["consultant"].stringValue
-                    consultItem.instruc = json[index]["instruc"].stringValue
-//                    print(consultItem.instruc)
+                    consultItem.instruc = json[index]["num"]["instruc"].stringValue
+                    print(json[index]["num"]["instruc"])
                     consultItem.last_updated = json[index]["last_updated"].stringValue
                 
                     if consultItem.number != "" {
@@ -212,7 +214,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         
         // Pull out all with 'consult' in title to pin to top
         let filteredArray = arrayToConvert.filter() { $0.name.localizedCaseInsensitiveContains("consult") }
-        tempDictionary["Consults"] = filteredArray
+        tempDictionary["Cx"] = filteredArray
         
         
         // Create alphabetized dictionary into first letter sections
@@ -280,6 +282,11 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
             modal.consultRecord = selectedRecord
 
         }
+        
+        if segue.identifier == "goToBananas" {
+            let modal = segue.destination as! WhatsHot
+            modal.delegate = self
+        }
     }
     
 // called at completion of "save" button being pressed in entity picker modal, prompts reload of new filtered list by new entity
@@ -287,6 +294,9 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         updateConsultData(json: consultJsonRef)
     }
     
+    func clearBadgeOnClose() {
+        NewButton.removeBadge()
+    }
 
     
     //check if no default hospital has yet been set -- so can fallback on "HUP" in updateConsultData method
@@ -345,10 +355,10 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
         callAction.image = UIImage(named: "phone-icon")
         callAction.backgroundColor = UIColor(hexString: "C0CB33")
         
-        favoriteAction.image = UIImage(named: "star-icon")
-        favoriteAction.backgroundColor = UIColor(hexString: "E4C441")
+//        favoriteAction.image = UIImage(named: "star-icon")
+//        favoriteAction.backgroundColor = UIColor(hexString: "E4C441")
         
-        return [textpageAction, callAction, favoriteAction]
+        return [textpageAction, callAction]
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {

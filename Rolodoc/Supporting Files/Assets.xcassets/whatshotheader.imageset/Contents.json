@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "bananapanel@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "whatshotheader.png",
+      "filename" : "bananapanel@2x.png",
       "scale" : "2x"
     },
     {

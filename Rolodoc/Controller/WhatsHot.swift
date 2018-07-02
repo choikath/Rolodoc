@@ -12,6 +12,8 @@ import Alamofire
 import SwiftMoment
 //import TwitterKit
 //import SwipeCellKit
+import Drift
+
 
 class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
 
@@ -21,9 +23,9 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
 //    var newsUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json?pennbatphone=twitterapi&count=20"
     var newsUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=fc3681bdcfe74a8ca761dbf9a0d46635"
     
-
-    
     var newsArray = [NewsItem]()
+    
+    var delegate: HomeTableViewController?
     
    
     override func viewDidLoad() {
@@ -62,7 +64,9 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
             }
         } else if sender.state == UIGestureRecognizerState.ended || sender.state == UIGestureRecognizerState.cancelled {
             if touchPoint.y - initialTouchPoint.y > 100 {
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true) {
+                    self.delegate?.clearBadgeOnClose()
+                }
             } else {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
@@ -75,6 +79,12 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    @IBAction func DriftButton(_ sender: Any) {
+        Drift.showConversations()
+    }
+    
 
     // MARK: - Table view data source
 
@@ -117,7 +127,7 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
     //Write the getNewsData method here:
     func getNewsData(url: String) {
         
-        let headers: HTTPHeaders = [
+        let _: HTTPHeaders = [
             "Authorization": "Bearer " + bearer_token
         ]
         
@@ -133,7 +143,7 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
                 
             }
             else {
-                print("Error \(response.result.error)")
+                print("Error \(String(describing: response.result.error))")
                 
             }
         }

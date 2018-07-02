@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 //import TwitterKit
+import Drift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        TWTRTwitter.sharedInstance().start(withConsumerKey:"    x....", consumerSecret:"    g...")
 
-        
+        Drift.setup("zvh33p878tp2")
+        Drift.registerUser("Penn Provider", email: "pennagent@gmail.com"); Drift.showArchivedCampaignsForEndUser(false)
         return true
     }
 

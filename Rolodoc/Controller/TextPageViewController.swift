@@ -12,10 +12,8 @@ import Lottie
 import ChameleonFramework
 
 
-class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessageComposeViewControllerDelegate {
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        self.dismiss(animated: true, completion: nil)
-    }
+class TextPageViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate {
+  
     
 
     var consultRecord: ConsultRecord!
@@ -24,6 +22,11 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
    
     
     @IBOutlet var messageTableView: UITableView!
+    
+    var ptRoom: String = ""
+    var ptMessage: String = ""
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +77,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
            let startnum = consultRecord.number.index(consultRecord.number.startIndex, offsetBy: 3)
            let endnum = consultRecord.number.index(consultRecord.number.startIndex, offsetBy: 6)
 
-            cell.providerLabel.text = "\(consultRecord.number.prefix(3))" + "-\(consultRecord.number[startnum..<endnum])-\(consultRecord.number.suffix(4))  " + consultRecord.consultant  //"Sri Adusumalli, MD"
+            cell.providerLabel.text = "\(consultRecord.number.prefix(3))" + "-\(consultRecord.number[startnum..<endnum])-\(consultRecord.number.suffix(4)).  " + consultRecord.consultant  //"Sri Adusumalli, MD"
 //            if consultRecord.last_updated != "" {
 //                cell.updatedAtLabel.text = "Last updated " + consultRecord.last_updated + " ago" //"24 minutes ago"
 //            } else { cell.updatedAtLabel.text = "" }
@@ -95,13 +98,14 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
 
             let cell = messageTableView.dequeueReusableCell(withIdentifier: "profileFieldCell", for: indexPath) as! ProfileFieldCell  // since our cell is a custom data type
             
-
+            cell.delegate = self
             cell.titleLabel.text = "Blg and Room # "
             cell.textField.placeholder = "e.g. Rhodes #309a"
-            cell.consultLabel.text = "Message: "
-            cell.consultText.text = "Hey hey"
-            cell.consultText.delegate = self as! UITextViewDelegate
-            
+
+            cell.consultLabel.text = "Message to \(consultRecord.consultant): "
+            cell.consultText.text = "Hi \(consultRecord.consultant)!" + "\n" + "> Ask your question"
+            cell.consultText.delegate = self as UITextViewDelegate
+
 //            cell.consultText.text = "Ask a question"
 //            cell.consultText.textColor = UIColor.lightGray
             
@@ -124,10 +128,30 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
+            ptMessage = ""
             textView.textColor = UIColor.black
         }
+        
     }
     
+    func didEndEditing(onCell cell: ProfileFieldCell) {
+        //        _ = messageTableView.indexPath(for: cell)
+        ptRoom = cell.textField.text!
+//        print("**********HI KATHERINE******** \(ptRoom)")
+        ptMessage = cell.consultText.text
+//        print("**********HI KATHERINE******** \(ptMessage)")
+    }
+    
+
+    
+//    func textViewDidChange(_ textView: UITextView) {
+////        print("CALLED TEXTVIEWDIDENDEDITING")
+//        ptMessage = textView.text
+////        print("TEXT VIEW'S MESSAGE NOW: \(ptMessage)")
+//    }
+
+
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return CGFloat(175.0)
@@ -136,7 +160,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
             return CGFloat(60.0)
         }
         if indexPath.row == 2 {
-            return CGFloat(400.0)
+            return CGFloat(350.0)
         }
         else {
             return CGFloat(100.0)
@@ -144,6 +168,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
         
     }
     
+
     
     //MARK: - Data Manipulation Methods
     
@@ -198,32 +223,47 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, MFMessa
     // send the saved draft in realm
     @IBAction func sendTextPage(_ sender: Any) {
         
-        
-        let animationView = LOTAnimationView(name: "checked_done_")
-        self.view.addSubview(animationView)
-        animationView.frame.size.width = UIScreen.main.bounds.width
-        animationView.frame.size.height = UIScreen.main.bounds.width
-//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 8.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 1.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 2.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 3.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 4.Ellipse 1.Fill 1.Color", atFrame: 0)
-//
-//        print(animationView.logHierarchyKeypaths())
-        
-        animationView.play{ (finished) in
-            print("lottie played")
-            animationView.removeFromSuperview()
 
-        }
+        
+//        let animationView = LOTAnimationView(name: "checked_done_")
+//        self.view.addSubview(animationView)
+//        animationView.frame.size.width = UIScreen.main.bounds.width
+//        animationView.frame.size.height = UIScreen.main.bounds.width
+//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 8.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 1.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 2.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 3.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 4.Ellipse 1.Fill 1.Color", atFrame: 0)
+//        //
+//        //        print(animationView.logHierarchyKeypaths())
+//
+//        animationView.play{ (finished) in
+//            print("lottie played")
+//            animationView.removeFromSuperview()
+//
+//        }
         
         if (MFMessageComposeViewController.canSendText()) {
+            
             let controller = MFMessageComposeViewController()
-            controller.body = "HI THIS IS A CONSULT"
+            print("########### + \(ptRoom)")
+            print("########### + \(ptMessage)")
+            controller.body = "*Consult via Rolodoc*" + "\n" + "Patient in room: \(self.ptRoom). " + "\n" + "\(self.ptMessage)"
             controller.recipients = [consultRecord.number]
             controller.messageComposeDelegate = self
             self.present(controller, animated: true, completion: nil)
         }
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        //... handle sms screen actions
+        self.dismiss(animated: true, completion: nil)
+        
+        
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     

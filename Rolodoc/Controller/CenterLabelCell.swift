@@ -16,6 +16,8 @@ class CenterLabelCell: UITableViewCell {
     
     @IBOutlet weak var consultType: UISegmentedControl!
     
+    weak var delegate: TextPageViewController?
+    
     @IBAction func consultTypeSelected(_ sender: UISegmentedControl) {
         print("# of segments = \(sender.numberOfSegments)")
         
