@@ -32,6 +32,7 @@
 		12BFB05C2093F6AE004A0E40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12BFB05A2093F6AE004A0E40 /* LaunchScreen.storyboard */; };
 		12BFB06820941856004A0E40 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BFB06720941856004A0E40 /* HomeTableViewController.swift */; };
 		12BFB06A2094BDDC004A0E40 /* ConsultRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BFB0692094BDDC004A0E40 /* ConsultRecord.swift */; };
+		12F2400620EB1D5D0032F2E3 /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F2400520EB1D5D0032F2E3 /* CheckboxButton.swift */; };
 		9C3D5AD22BC227DD1C70FC09 /* Pods_Rolodoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58B2524D3E037FF63D2B12 /* Pods_Rolodoc.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		12BFB05D2093F6AE004A0E40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12BFB06720941856004A0E40 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTableViewController.swift; path = Rolodoc/Controller/HomeTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		12BFB0692094BDDC004A0E40 /* ConsultRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultRecord.swift; sourceTree = "<group>"; };
+		12F2400520EB1D5D0032F2E3 /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		2D58B2524D3E037FF63D2B12 /* Pods_Rolodoc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rolodoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7748AF12B0EDD5ACE95C9F44 /* Pods-Rolodoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rolodoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc.release.xcconfig"; sourceTree = "<group>"; };
 		9EC65E87DE8AACDAE6153EBC /* Pods-Rolodoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rolodoc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc.debug.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				1251CAF720B11C4800268245 /* CenterLabelCell.xib */,
 				1251CAFC20B3420600268245 /* ProfileFieldCell.swift */,
 				1251CAFD20B3420600268245 /* ProfileFieldCell.xib */,
+				12F2400520EB1D5D0032F2E3 /* CheckboxButton.swift */,
 				1251CB0020B3AD3A00268245 /* ConsultListingCell.swift */,
 				1251CB0120B3AD3A00268245 /* ConsultListingCell.xib */,
 				1287200C209668E5004DBD48 /* WhatsHot.swift */,
@@ -330,6 +333,7 @@
 				1251CAF120B1184500268245 /* ProfileLabelCell.swift in Sources */,
 				1287200F20966AE9004DBD48 /* NewsItem.swift in Sources */,
 				1251CB0220B3AD3A00268245 /* ConsultListingCell.swift in Sources */,
+				12F2400620EB1D5D0032F2E3 /* CheckboxButton.swift in Sources */,
 				1251CAFB20B31A4A00268245 /* MessageRecord.swift in Sources */,
 				128FA4A22096D1F100AA032E /* EntityPickerViewController.swift in Sources */,
 				1251CAD520B0EBE300268245 /* TextPageViewController.swift in Sources */,

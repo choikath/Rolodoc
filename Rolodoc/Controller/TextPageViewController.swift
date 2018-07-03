@@ -160,7 +160,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             return CGFloat(60.0)
         }
         if indexPath.row == 2 {
-            return CGFloat(350.0)
+            return CGFloat(400.0)
         }
         else {
             return CGFloat(100.0)
