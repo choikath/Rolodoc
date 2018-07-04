@@ -16,6 +16,15 @@ class ProfileFieldCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate
     @IBOutlet weak var consultLabel: UILabel!
     @IBOutlet weak var consultText: UITextView!
     
+    @IBOutlet weak var puppyGiphy: CheckboxButton!
+    
+    @IBAction func puppyGiphyClicked() {
+        puppyGiphy.isChecked = !puppyGiphy.isChecked
+        delegate?.puppyGiphy = puppyGiphy.isChecked
+//        print("profile field cell puppy giphy clicked detected!!!! \(delegate?.puppyGiphy)")
+
+    }
+    
     weak var delegate: TextPageViewController?
     
 //    var buttonAction: ((Any) -> Void)?
@@ -54,7 +63,7 @@ class ProfileFieldCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate
         delegate?.didEndEditing(onCell: self)
     }
     
-    
+
     
     
     

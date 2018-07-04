@@ -50,6 +50,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //        defaults.set("HUP", forKey: "defaultHospital")
         tableView.delegate = self
         tableView.rowHeight = 70.0
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 70.0
         
         
         // dismiss keyboard if click anywhere else on screen
@@ -115,14 +117,18 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath) as! SwipeTableViewCell
-        
-//        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath) as! SwipeTableViewCell
+
+        if cell.detailTextLabel == nil {
+            cell = SwipeTableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
+        }
+        //        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
         cell.delegate = self
         
         if let sublist = dictionaryToLoad[sections[indexPath.section]] { //if there are values under each alphabet letter
             cell.textLabel?.text = sublist[indexPath.row].name
-            cell.detailTextLabel?.text = sublist[indexPath.row].descrip
+            cell.detailTextLabel?.text = sublist[indexPath.row].consultant + ": " + sublist[indexPath.row].descrip
+            
 //            cell.phoneNum.text = sublist[indexPath.row].number
         }
         return cell
@@ -144,7 +150,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //                UIApplication.shared.openURL(url)
 //            }
 //        }
-        
+        performSegue(withIdentifier: "goToTextPage", sender: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -258,8 +264,17 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
                 searchBar.resignFirstResponder() //nolonger be selected
                 
             }
+        } else {
         
+            let allConsults = consultArray
             
+            let filteredArray = allConsults.filter() { $0.name.localizedCaseInsensitiveContains(searchBar.text!) }
+            convertToDictionary(arrayToConvert: filteredArray)
+            //        arrayToLoad = filteredArray
+            //        print(searchBar.text)
+            searchedDictionary = dictionaryToLoad
+            tableView.reloadData()
+        
         }
     }
     

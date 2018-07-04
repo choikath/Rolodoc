@@ -22,11 +22,12 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
    
     
     @IBOutlet var messageTableView: UITableView!
-    
+
+
     var ptRoom: String = ""
     var ptMessage: String = ""
-    
-    
+    var puppyGiphy: Bool = true
+    let puppyArray = ["pal-meme", "staycool-meme", "slide-meme"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,8 +141,14 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
 //        print("**********HI KATHERINE******** \(ptRoom)")
         ptMessage = cell.consultText.text
 //        print("**********HI KATHERINE******** \(ptMessage)")
+    
     }
     
+//    func puppyGiphyClicked(isChecked: Bool) {
+//        print("PUPPY GIPHY BUTTON CLICKED")
+//        puppyGiphy = isChecked
+//
+//    }
 
     
 //    func textViewDidChange(_ textView: UITextView) {
@@ -251,6 +258,17 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             controller.body = "*Consult via Rolodoc*" + "\n" + "Patient in room: \(self.ptRoom). " + "\n" + "\(self.ptMessage)"
             controller.recipients = [consultRecord.number]
             controller.messageComposeDelegate = self
+            
+            if puppyGiphy {
+//                print("****CHECKED!*****")
+                let giphy = puppyArray[Int(arc4random_uniform(UInt32(puppyArray.count)))]
+                let path = Bundle.main.path(forResource: giphy, ofType: "gif")!
+                let imageData = try! Data(contentsOf: URL(fileURLWithPath: path))
+                controller.addAttachmentData(imageData as Data, typeIdentifier: "image/gif", filename: giphy + ".gif")
+            }
+            
+            
+            
             self.present(controller, animated: true, completion: nil)
         }
     }

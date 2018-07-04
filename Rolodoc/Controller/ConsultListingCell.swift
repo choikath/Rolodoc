@@ -16,11 +16,14 @@ class ConsultListingCell:  SwipeTableViewCell {
     @IBOutlet weak var descrip: UILabel!
 
     
-//    var delegate: SwipeTableViewCellDelegate?
+//    var delegate: HomeTableViewController
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+//        title.text = ""
+//        phoneNum.text = ""
+//        descrip.text = ""
         
     }
 

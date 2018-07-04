@@ -1,0 +1,50 @@
+{
+  "stickers" : [
+    {
+      "filename" : "slide-meme.sticker"
+    },
+    {
+      "filename" : "pal-meme.sticker"
+    },
+    {
+      "filename" : "staycool-meme.sticker"
+    },
+    {
+      "filename" : "meme-wonderfulwonderwoman-small.sticker"
+    },
+    {
+      "filename" : "meme-beyonceamazing-small.sticker"
+    },
+    {
+      "filename" : "meme-oprahhighfives-small.sticker"
+    },
+    {
+      "filename" : "meme-batman.sticker"
+    },
+    {
+      "filename" : "meme-dogtor.sticker"
+    },
+    {
+      "filename" : "meme-flawlessscrubs.sticker"
+    },
+    {
+      "filename" : "meme-superduperanchorman-small.sticker"
+    },
+    {
+      "filename" : "meme-bigcat.sticker"
+    },
+    {
+      "filename" : "meme-tibia.sticker"
+    },
+    {
+      "filename" : "meme-todd.sticker"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "properties" : {
+    "grid-size" : "regular"
+  }
+}

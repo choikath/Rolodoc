@@ -82,6 +82,9 @@
                                         <state key="selected" image="checkbox">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="puppyGiphyClicked" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fe0-Rf-NpA"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -124,6 +127,7 @@
             <connections>
                 <outlet property="consultLabel" destination="mCo-fd-ybn" id="6Uj-Ef-asy"/>
                 <outlet property="consultText" destination="Oz0-gX-V3a" id="MwR-kj-Qo7"/>
+                <outlet property="puppyGiphy" destination="NNC-KY-h34" id="JTS-5G-jX7"/>
                 <outlet property="textField" destination="YlX-yy-Ubf" id="ub8-dT-MyQ"/>
                 <outlet property="titleLabel" destination="yow-ON-5rf" id="eah-In-ADg"/>
             </connections>

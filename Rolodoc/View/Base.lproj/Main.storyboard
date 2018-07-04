@@ -33,14 +33,11 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="consultCell" id="Ttc-WL-DZX" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ttc-WL-DZX" id="bOi-xT-jPt" customClass="ConsultListingCell" customModule="SwipeCellKit">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ttc-WL-DZX" id="bOi-xT-jPt" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <segue destination="4pT-fV-58V" kind="presentation" identifier="goToTextPage" id="d4j-mD-H8j"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -65,6 +62,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="NewButton" destination="lCg-Jd-VKR" id="EtH-bI-7tk"/>
+                        <segue destination="4pT-fV-58V" kind="presentation" identifier="goToTextPage" id="Vsl-Uz-BSj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5n7-sP-QFn" userLabel="First Responder" sceneMemberID="firstResponder"/>

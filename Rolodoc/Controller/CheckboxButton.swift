@@ -25,19 +25,23 @@ class CheckboxButton: UIButton {
         }
     }
     
+    weak var delegate: ProfileFieldCell? // to pass checked state to textpage modal
+    
     override func awakeFromNib() {
-        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+//        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
         self.isChecked = true
         self.setTitleColor(UIColor.black, for: UIControlState.normal)
         self.setTitleColor(UIColor.black, for: UIControlState.normal)
 
     }
     
-    @objc func buttonClicked(sender: UIButton) {
-        if sender == self {
-            isChecked = !isChecked
-        }
-    }
+//    @objc func buttonClicked(sender: UIButton) {
+//        if sender == self {
+//            isChecked = !isChecked
+//            delegate?.puppyGiphyClicked()
+//            print("original button clicked")
+//        }
+//    }
 
 
 }
