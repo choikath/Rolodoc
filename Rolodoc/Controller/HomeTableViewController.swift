@@ -39,6 +39,9 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     var consultsOnly = [String: [ConsultRecord] ]() // store items with 'consult' in name to pin to top
 //    var currentIndexPath = IndexPath(row: 0, section: 0)
     
+
+    
+    
     @IBOutlet weak var NewButton: UIBarButtonItem!
     
     
@@ -53,6 +56,11 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 70.0
         
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
+//        tableView.addSubview(refreshControl) // not required when using UITableViewController
+        
         
         // dismiss keyboard if click anywhere else on screen
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(HomeTableViewController.endEditing(_:)))
@@ -61,6 +69,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         Drift.load()
         
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         NewButton.addBadge(number: 1)
@@ -155,6 +164,11 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     }
 
 
+    
+    @objc func refresh(sender:AnyObject) {
+        getConsultData(url: ROLODOC_URL)
+    }
+    
     //Write the getConsultData method here:
     func getConsultData(url: String) {
         
@@ -198,8 +212,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //                print(consultItem.descrip)
                     consultItem.number = json[index]["num"]["number"].stringValue
                     consultItem.consultant = json[index]["num"]["consultant"].stringValue
-                    consultItem.instruc = json[index]["num"]["instruc"].stringValue
-                    print(json[index]["num"]["instruc"])
+                    consultItem.instruc = json[index]["instruc"].stringValue
+                    print(json[index]["instruc"])
                     consultItem.last_updated = json[index]["last_updated"].stringValue
                 
                     if consultItem.number != "" {
@@ -212,6 +226,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         convertToDictionary(arrayToConvert: arrayToLoad)
         consultDictionary = dictionaryToLoad
         SVProgressHUD.dismiss()
+        refreshControl?.endRefreshing()
         tableView.reloadData()
     }
     
