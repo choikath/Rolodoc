@@ -380,7 +380,7 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
         
         // customize the action appearance
         textpageAction.image = UIImage(named: "text-icon")
-        textpageAction.backgroundColor = UIColor(hexString: "7BB342")
+        textpageAction.backgroundColor = UIColor(hexString: "2AB611")
         
         callAction.image = UIImage(named: "phone-icon")
         callAction.backgroundColor = UIColor(hexString: "C0CB33")

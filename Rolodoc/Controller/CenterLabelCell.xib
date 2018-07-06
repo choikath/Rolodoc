@@ -34,7 +34,6 @@
                         </connections>
                     </segmentedControl>
                 </subviews>
-                <color key="backgroundColor" red="0.66274509803921566" green="0.66274509803921566" blue="0.66274509803921566" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="z2P-eO-7J8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Nz5-Hj-JEL"/>
                     <constraint firstItem="z2P-eO-7J8" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="zOb-n0-QJ2"/>

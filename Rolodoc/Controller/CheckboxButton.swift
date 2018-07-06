@@ -19,8 +19,10 @@ class CheckboxButton: UIButton {
         didSet{
             if isChecked == true {
                 self.setImage(checkedImage, for: UIControlState.normal)
+                self.setTitleColor(UIColor.black, for: UIControlState.normal)
             } else {
                 self.setImage(uncheckedImage, for: UIControlState.normal)
+                self.setTitleColor(UIColor.lightGray, for: UIControlState.normal)
             }
         }
     }

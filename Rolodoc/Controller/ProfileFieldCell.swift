@@ -37,7 +37,7 @@ class ProfileFieldCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code goes here
-        consultText.text = "Ask a question"
+//        consultText.text = "Ask a question"
         consultText.textColor = UIColor.lightGray
 
         func setSelected(_ selected: Bool, animated: Bool) {

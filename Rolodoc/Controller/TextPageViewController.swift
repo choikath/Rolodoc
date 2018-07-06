@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import Lottie
 import ChameleonFramework
-
+import SVProgressHUD
 
 class TextPageViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate {
   
@@ -26,6 +26,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
 
     var ptRoom: String = ""
     var ptMessage: String = ""
+    var placeholderMessage: String = ""
     var puppyGiphy: Bool = true
     let puppyArray = ["pal-meme", "staycool-meme", "slide-meme"]
     
@@ -100,11 +101,12 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             let cell = messageTableView.dequeueReusableCell(withIdentifier: "profileFieldCell", for: indexPath) as! ProfileFieldCell  // since our cell is a custom data type
             
             cell.delegate = self
-            cell.titleLabel.text = "Blg and Room # "
+            cell.titleLabel.text = "Blg and Room #"
             cell.textField.placeholder = "e.g. Rhodes #309a"
 
             cell.consultLabel.text = "Message to \(consultRecord.consultant): "
-            cell.consultText.text = "Hi \(consultRecord.consultant)!" + "\n" + "> Ask your question"
+            cell.consultText.text = "Hi \(consultRecord.consultant)!" + "\n" + "...Ask your question..."
+            placeholderMessage = cell.consultText.text
             cell.consultText.delegate = self as UITextViewDelegate
 
 //            cell.consultText.text = "Ask a question"
@@ -133,6 +135,13 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             textView.textColor = UIColor.black
         }
         
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.textColor = UIColor.lightGray
+            textView.text = placeholderMessage
+        }
     }
     
     func didEndEditing(onCell cell: ProfileFieldCell) {
@@ -251,7 +260,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
 //        }
         
         if (MFMessageComposeViewController.canSendText()) {
-            
+            SVProgressHUD.show()
             let controller = MFMessageComposeViewController()
             print("########### + \(ptRoom)")
             print("########### + \(ptMessage)")
@@ -269,7 +278,9 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             
             
             
-            self.present(controller, animated: true, completion: nil)
+            self.present(controller, animated: true) {
+                SVProgressHUD.dismiss()
+            }
         }
     }
     
