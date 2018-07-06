@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         var identifier: String = ""
-        var isSaved = UserDefaults.standard.bool(forKey: "loginSaved")
+        let isSaved = UserDefaults.standard.bool(forKey: "loginSaved")
         if (isSaved)
         {
             identifier = "home"

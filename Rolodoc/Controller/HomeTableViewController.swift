@@ -147,7 +147,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         var cell = tableView.dequeueReusableCell(withIdentifier: "consultCell", for: indexPath) as! SwipeTableViewCell
 
         if cell.detailTextLabel == nil {
-            cell = SwipeTableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
+            cell = SwipeTableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "consultCell")
         }
         //        cell = UITableViewCell(style: .subtitle, reuseIdentifier: "consultCell") as! SwipeTableViewCell
         cell.delegate = self
@@ -406,10 +406,10 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
             }
         }
         
-        let favoriteAction = SwipeAction(style: .default, title: "Favorite") { action, indexPath in
-            // handle action by updating model with deletion
-            print("this is my favorite!")
-        }
+//        let favoriteAction = SwipeAction(style: .default, title: "Favorite") { action, indexPath in
+//            // handle action by updating model with deletion
+//            print("this is my favorite!")
+//        }
         
         // customize the action appearance
         textpageAction.image = UIImage(named: "text-icon")

@@ -411,7 +411,7 @@
                     </navigationBar>
                     <connections>
                         <segue destination="HqU-Ni-6lu" kind="relationship" relationship="rootViewController" id="2Qj-fh-63f"/>
-                        <segue destination="tZI-qo-enO" kind="show" id="g9P-YH-FdT"/>
+                        <segue destination="tZI-qo-enO" kind="show" identifier="toLogin" id="g9P-YH-FdT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PVy-da-Drk" userLabel="First Responder" sceneMemberID="firstResponder"/>
