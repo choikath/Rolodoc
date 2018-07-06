@@ -27,7 +27,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
     var ptRoom: String = ""
     var ptMessage: String = ""
     var placeholderMessage: String = ""
-    var puppyGiphy: Bool = true
+    var puppyGiphy: Bool = false
     let puppyArray = ["pal-meme", "staycool-meme", "slide-meme"]
     
     override func viewDidLoad() {
@@ -241,23 +241,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
         
 
         
-//        let animationView = LOTAnimationView(name: "checked_done_")
-//        self.view.addSubview(animationView)
-//        animationView.frame.size.width = UIScreen.main.bounds.width
-//        animationView.frame.size.height = UIScreen.main.bounds.width
-//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 8.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 1.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 2.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 3.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        //        animationView.setValue(UIColor.flatPink(), forKeypath: "layers.Shape Layer 4.Ellipse 1.Fill 1.Color", atFrame: 0)
-//        //
-//        //        print(animationView.logHierarchyKeypaths())
-//
-//        animationView.play{ (finished) in
-//            print("lottie played")
-//            animationView.removeFromSuperview()
-//
-//        }
+       
         
         if (MFMessageComposeViewController.canSendText()) {
             SVProgressHUD.show()

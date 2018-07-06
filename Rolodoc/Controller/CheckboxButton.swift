@@ -31,10 +31,9 @@ class CheckboxButton: UIButton {
     
     override func awakeFromNib() {
 //        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
-        self.isChecked = true
-        self.setTitleColor(UIColor.black, for: UIControlState.normal)
-        self.setTitleColor(UIColor.black, for: UIControlState.normal)
-
+        self.isChecked = false
+        self.setTitleColor(UIColor.lightGray, for: UIControlState.normal)
+        
     }
     
 //    @objc func buttonClicked(sender: UIButton) {

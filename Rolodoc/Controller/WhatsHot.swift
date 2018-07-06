@@ -24,6 +24,7 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
     var newsUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=fc3681bdcfe74a8ca761dbf9a0d46635"
     
     var newsArray = [NewsItem]()
+    var icons = ["Heart", "bananas", "Bell", "Fire", "Instagram", "New"]
     
     var delegate: HomeTableViewController?
     
@@ -105,7 +106,7 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
         cell.detailTextLabel?.text = newsArray[indexPath.row].source
         
         
-        cell.imageView?.image = UIImage(named: "Heart")
+        cell.imageView?.image = UIImage(named: icons[Int(arc4random_uniform(UInt32(icons.count)))])
         return cell
     }
     

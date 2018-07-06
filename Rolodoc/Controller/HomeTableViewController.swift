@@ -14,12 +14,15 @@ import SVProgressHUD
 import SwipeCellKit
 import ChameleonFramework
 import Drift
+import Lottie
+import MessageUI
 
 protocol ModalHandler {
     func modalDismissed()
 }
 
-class HomeTableViewController: UITableViewController, UISearchBarDelegate, ModalHandler {
+class HomeTableViewController: UITableViewController, UISearchBarDelegate, ModalHandler, MFMessageComposeViewControllerDelegate {
+
 
     let defaults = UserDefaults.standard
     let modalVC = EntityPickerViewController()
@@ -39,6 +42,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     var consultsOnly = [String: [ConsultRecord] ]() // store items with 'consult' in name to pin to top
 //    var currentIndexPath = IndexPath(row: 0, section: 0)
     
+//    let animations = ["ice_cream_animation", "loader_animation", "jumping_banano", "single_wave_loader", "loading_animation"]
+    var animationView = LOTAnimationView(name: "ice_cream_animation")
 
     
     
@@ -48,7 +53,20 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SVProgressHUD.show()
+//        SVProgressHUD.show()
+//            animationView = LOTAnimationView(name: animations[Int(arc4random_uniform(UInt32(animations.count)))])
+                self.view.addSubview(animationView)
+//                self.view.bringSubview(toFront: animationView)
+                animationView.frame.size.width = UIScreen.main.bounds.width
+                animationView.frame.size.height = UIScreen.main.bounds.width
+                animationView.contentMode = UIViewContentMode.scaleAspectFill
+                animationView.loopAnimation = true
+                animationView.play{ (finished) in
+                    print("lottie played")
+                    
+                }
+        
+        
         getConsultData(url: ROLODOC_URL)
 //        defaults.set("HUP", forKey: "defaultHospital")
         tableView.delegate = self
@@ -72,7 +90,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     
     override func viewDidAppear(_ animated: Bool) {
-        NewButton.addBadge(number: 1)
+//        NewButton.addBadge(number: 1)
     }
     // Code to play sound with scroll
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -225,7 +243,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         arrayToLoad = consultArray
         convertToDictionary(arrayToConvert: arrayToLoad)
         consultDictionary = dictionaryToLoad
-        SVProgressHUD.dismiss()
+//        SVProgressHUD.dismiss()
+        animationView.removeFromSuperview()
+        
+        
         refreshControl?.endRefreshing()
         tableView.reloadData()
     }
@@ -354,10 +375,22 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
             // handle action by updating model with selection
             
             self.selectedRecord = self.dictionaryToLoad[self.sections[indexPath.section]]![indexPath.row]
+            let phoneNum = self.selectedRecord.number
+            let consultant = self.selectedRecord.consultant
             
-            self.performSegue(withIdentifier: "goToTextPage", sender: self)
+//            self.performSegue(withIdentifier: "goToTextPage", sender: self)
+            if (MFMessageComposeViewController.canSendText()) {
+                SVProgressHUD.show()
+                let controller = MFMessageComposeViewController()
+                controller.body = "Hi \(consultant)!" + "\n"
+                controller.recipients = [phoneNum]
+                controller.messageComposeDelegate = self
+                self.present(controller, animated: true) {
+                    SVProgressHUD.dismiss()
+                }
             }
-        
+            
+        }
         
         let callAction = SwipeAction(style: .default, title: "Call") { action, indexPath in
             // handle action by updating model with seletion
@@ -407,6 +440,11 @@ extension HomeTableViewController: SwipeTableViewCellDelegate {
 //                destinationVC.selectedCategory = categoryArray?[indexPath.row]
 //            }
 //        }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 extension CAShapeLayer {

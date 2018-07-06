@@ -23,7 +23,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Drift.setup("zvh33p878tp2")
         Drift.registerUser("Penn Provider", email: "pennagent@gmail.com"); Drift.showArchivedCampaignsForEndUser(false)
+        
+        //for testing reset to false:
+//        let defaults = UserDefaults.standard
+//        defaults.set(false, forKey: "loginSaved")
+        
+        
+        var identifier: String = ""
+        var isSaved = UserDefaults.standard.bool(forKey: "loginSaved")
+        if (isSaved)
+        {
+            identifier = "home"
+        }
+        else
+        {
+            identifier = "login"
+        }
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let initialViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: identifier) as UIViewController
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
+    
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

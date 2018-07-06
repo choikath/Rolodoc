@@ -38,6 +38,12 @@
 		12F2401620EBD2540032F2E3 /* pal-meme.gif in Resources */ = {isa = PBXBuildFile; fileRef = 12F2401520EBD2530032F2E3 /* pal-meme.gif */; };
 		12F2401D20EC46FB0032F2E3 /* staycool-meme.gif in Resources */ = {isa = PBXBuildFile; fileRef = 12F2401920EC46FA0032F2E3 /* staycool-meme.gif */; };
 		12F2401E20EC46FB0032F2E3 /* slide-meme.gif in Resources */ = {isa = PBXBuildFile; fileRef = 12F2401A20EC46FB0032F2E3 /* slide-meme.gif */; };
+		12F2403420EFB5040032F2E3 /* jumping_banano.json in Resources */ = {isa = PBXBuildFile; fileRef = 12F2403320EFB5040032F2E3 /* jumping_banano.json */; };
+		12F2403A20EFBA250032F2E3 /* ice_cream_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 12F2403920EFBA240032F2E3 /* ice_cream_animation.json */; };
+		12F2403C20EFBA800032F2E3 /* loader_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 12F2403B20EFBA800032F2E3 /* loader_animation.json */; };
+		12F2404020EFBC530032F2E3 /* single_wave_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 12F2403F20EFBC520032F2E3 /* single_wave_loader.json */; };
+		12F2404220EFBCB10032F2E3 /* loading_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 12F2404120EFBCB10032F2E3 /* loading_animation.json */; };
+		12F2404420EFC2A50032F2E3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F2404320EFC2A50032F2E3 /* LoginViewController.swift */; };
 		9C3D5AD22BC227DD1C70FC09 /* Pods_Rolodoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58B2524D3E037FF63D2B12 /* Pods_Rolodoc.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +106,12 @@
 		12F2401520EBD2530032F2E3 /* pal-meme.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "pal-meme.gif"; sourceTree = "<group>"; };
 		12F2401920EC46FA0032F2E3 /* staycool-meme.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "staycool-meme.gif"; sourceTree = "<group>"; };
 		12F2401A20EC46FB0032F2E3 /* slide-meme.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "slide-meme.gif"; sourceTree = "<group>"; };
+		12F2403320EFB5040032F2E3 /* jumping_banano.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = jumping_banano.json; sourceTree = "<group>"; };
+		12F2403920EFBA240032F2E3 /* ice_cream_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ice_cream_animation.json; sourceTree = "<group>"; };
+		12F2403B20EFBA800032F2E3 /* loader_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader_animation.json; sourceTree = "<group>"; };
+		12F2403F20EFBC520032F2E3 /* single_wave_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = single_wave_loader.json; sourceTree = "<group>"; };
+		12F2404120EFBCB10032F2E3 /* loading_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading_animation.json; sourceTree = "<group>"; };
+		12F2404320EFC2A50032F2E3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2D58B2524D3E037FF63D2B12 /* Pods_Rolodoc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rolodoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7748AF12B0EDD5ACE95C9F44 /* Pods-Rolodoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rolodoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc.release.xcconfig"; sourceTree = "<group>"; };
 		9EC65E87DE8AACDAE6153EBC /* Pods-Rolodoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rolodoc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rolodoc/Pods-Rolodoc.debug.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +197,7 @@
 				1251CAD420B0EBE300268245 /* TextPageViewController.swift */,
 				128FA4A12096D1F100AA032E /* EntityPickerViewController.swift */,
 				12BFB06720941856004A0E40 /* HomeTableViewController.swift */,
+				12F2404320EFC2A50032F2E3 /* LoginViewController.swift */,
 				12BFB0502093F6AC004A0E40 /* ViewController.swift */,
 				128FA49D209690AF00AA032E /* DismissAnimator.swift */,
 				128FA49F209690F700AA032E /* Interactor.swift */,
@@ -198,6 +211,11 @@
 				12F2401A20EC46FB0032F2E3 /* slide-meme.gif */,
 				12F2401920EC46FA0032F2E3 /* staycool-meme.gif */,
 				12F2401520EBD2530032F2E3 /* pal-meme.gif */,
+				12F2403F20EFBC520032F2E3 /* single_wave_loader.json */,
+				12F2404120EFBCB10032F2E3 /* loading_animation.json */,
+				12F2403B20EFBA800032F2E3 /* loader_animation.json */,
+				12F2403920EFBA240032F2E3 /* ice_cream_animation.json */,
+				12F2403320EFB5040032F2E3 /* jumping_banano.json */,
 				1251CB0620B5A7FB00268245 /* checked_done_.json */,
 				1251CB0420B471CB00268245 /* done_button.json */,
 				12BFB0582093F6AE004A0E40 /* Assets.xcassets */,
@@ -319,12 +337,17 @@
 				12F2401620EBD2540032F2E3 /* pal-meme.gif in Resources */,
 				12BFB0592093F6AE004A0E40 /* Assets.xcassets in Resources */,
 				1251CAFF20B3420600268245 /* ProfileFieldCell.xib in Resources */,
+				12F2403A20EFBA250032F2E3 /* ice_cream_animation.json in Resources */,
 				1251CAF920B11C4800268245 /* CenterLabelCell.xib in Resources */,
 				1251CB0320B3AD3A00268245 /* ConsultListingCell.xib in Resources */,
 				12BFB0542093F6AC004A0E40 /* Main.storyboard in Resources */,
 				12F2401E20EC46FB0032F2E3 /* slide-meme.gif in Resources */,
+				12F2403420EFB5040032F2E3 /* jumping_banano.json in Resources */,
+				12F2403C20EFBA800032F2E3 /* loader_animation.json in Resources */,
+				12F2404220EFBCB10032F2E3 /* loading_animation.json in Resources */,
 				1251CAF220B1184500268245 /* ProfileLabelCell.xib in Resources */,
 				1251CB0720B5A7FB00268245 /* checked_done_.json in Resources */,
+				12F2404020EFBC530032F2E3 /* single_wave_loader.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12F2404420EFC2A50032F2E3 /* LoginViewController.swift in Sources */,
 				1251CAFE20B3420600268245 /* ProfileFieldCell.swift in Sources */,
 				1251CAF820B11C4800268245 /* CenterLabelCell.swift in Sources */,
 				12BFB06820941856004A0E40 /* HomeTableViewController.swift in Sources */,

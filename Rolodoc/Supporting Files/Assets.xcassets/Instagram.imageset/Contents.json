@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Instagram_000000_25.png",
+      "filename" : "Instagram_000000_50.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Instagram_000000_100.png",
       "scale" : "2x"
     },
     {

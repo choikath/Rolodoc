@@ -91,6 +91,7 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpk-8H-PKj">
                                             <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
+                                            <color key="backgroundColor" red="0.66274509800000003" green="0.66274509800000003" blue="0.66274509800000003" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Cancel">
                                                 <color key="titleColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
@@ -399,22 +400,124 @@
         <!--Navigation Controller-->
         <scene sceneID="5sh-Yf-3Nx">
             <objects>
-                <navigationController id="hao-PS-8AM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hao-PS-8AM" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hds-Qc-XmC">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.28516288851853805" green="0.28657693340627233" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.28627450980392155" green="0.28627450980392155" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="HqU-Ni-6lu" kind="relationship" relationship="rootViewController" id="2Qj-fh-63f"/>
+                        <segue destination="tZI-qo-enO" kind="show" id="g9P-YH-FdT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PVy-da-Drk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-248" y="-280"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="TmL-kp-2Oq">
+            <objects>
+                <viewController storyboardIdentifier="login" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tZI-qo-enO" customClass="LoginViewController" customModule="Rolodoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P33-pO-kuA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6z-Wy-yUN">
+                                <rect key="frame" x="112.5" y="255" width="150" height="50"/>
+                                <color key="backgroundColor" red="0.66472846269999997" green="0.78782576319999997" blue="0.82806581260000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Igr-vX-QQC"/>
+                                    <constraint firstAttribute="width" constant="150" id="qsn-z0-PdU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <state key="normal" title="l o g i n">
+                                    <color key="titleColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonPresssed:" destination="tZI-qo-enO" eventType="touchUpInside" id="DWA-uc-0YL"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6z-6f-IGJ" userLabel="subviewzero">
+                                <rect key="frame" x="37.5" y="140" width="300" height="100"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EM5-qC-AeJ">
+                                        <rect key="frame" x="25" y="45" width="250" height="55"/>
+                                        <color key="backgroundColor" red="0.28627450980392155" green="0.28627450980392155" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="B5K-a9-fu6"/>
+                                            <constraint firstAttribute="height" constant="55" id="fOh-ga-vn1"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="40"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <action selector="loginButtonPresssed:" destination="tZI-qo-enO" eventType="editingDidEndOnExit" id="fIB-3A-Zqq"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access For Penn Providers Only:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AU-2m-qko">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="KPm-YZ-ieu"/>
+                                            <constraint firstAttribute="height" constant="21" id="P8j-CW-eSa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="4UJ-xl-l1w"/>
+                                    <constraint firstAttribute="bottom" secondItem="EM5-qC-AeJ" secondAttribute="bottom" id="A1s-oR-4iY"/>
+                                    <constraint firstAttribute="height" constant="100" id="D8W-hj-D8r"/>
+                                    <constraint firstAttribute="trailing" secondItem="4AU-2m-qko" secondAttribute="trailing" id="EPn-Ne-5Rw"/>
+                                    <constraint firstItem="4AU-2m-qko" firstAttribute="leading" secondItem="W6z-6f-IGJ" secondAttribute="leading" id="UUt-Wh-7iv"/>
+                                    <constraint firstItem="EM5-qC-AeJ" firstAttribute="centerX" secondItem="W6z-6f-IGJ" secondAttribute="centerX" id="bsg-hh-zR9"/>
+                                    <constraint firstItem="4AU-2m-qko" firstAttribute="top" secondItem="W6z-6f-IGJ" secondAttribute="top" id="qkd-XW-Gem"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18840310685165756" green="0.21979567259089094" blue="0.2605243921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="G6z-Wy-yUN" firstAttribute="top" secondItem="W6z-6f-IGJ" secondAttribute="bottom" constant="15" id="IQG-90-agf"/>
+                            <constraint firstItem="W6z-6f-IGJ" firstAttribute="centerX" secondItem="P33-pO-kuA" secondAttribute="centerX" id="ZqZ-Eh-dcB"/>
+                            <constraint firstItem="W6z-6f-IGJ" firstAttribute="top" secondItem="nP6-0d-nl3" secondAttribute="top" constant="120" id="m1C-cg-f72"/>
+                            <constraint firstItem="G6z-Wy-yUN" firstAttribute="centerX" secondItem="P33-pO-kuA" secondAttribute="centerX" id="yr1-jo-4g4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nP6-0d-nl3"/>
+                    </view>
+                    <connections>
+                        <outlet property="loginButton" destination="G6z-Wy-yUN" id="Htm-Wk-jkq"/>
+                        <outlet property="passwordField" destination="EM5-qC-AeJ" id="vNB-sR-bt2"/>
+                        <segue destination="3Cd-ht-zkp" kind="show" identifier="goToHome" id="rzS-cn-WHe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9sk-VG-GI4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-250.40000000000001" y="470.91454272863569"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="m3g-T0-zRC">
+            <objects>
+                <navigationController id="3Cd-ht-zkp" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ch5-CO-O6d">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HqU-Ni-6lu" kind="relationship" relationship="rootViewController" id="6G2-80-YTS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BD0-GU-MoO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702" y="471"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ggw-wf-FzD">
@@ -446,4 +549,7 @@
         <image name="send-icon" width="25" height="25"/>
         <image name="whatshotheader" width="1404" height="754"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="2Qj-fh-63f"/>
+    </inferredMetricsTieBreakers>
 </document>
