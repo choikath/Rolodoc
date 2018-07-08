@@ -154,7 +154,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         
         if let sublist = dictionaryToLoad[sections[indexPath.section]] { //if there are values under each alphabet letter
             cell.textLabel?.text = sublist[indexPath.row].name
-            cell.detailTextLabel?.text = sublist[indexPath.row].consultant + ": " + sublist[indexPath.row].descrip
+            cell.detailTextLabel?.text = "\(sublist[indexPath.row].consultant): " + sublist[indexPath.row].descrip
             
 //            cell.phoneNum.text = sublist[indexPath.row].number
         }
@@ -243,10 +243,8 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
             if json[index]["hosp"].stringValue == hospitalSelected  ||
                 json[index]["descrip"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil ||
                 json[index]["name"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil || json[index]["hosp"] == nil {
+            
                 
-//                if json[index]["name"] == "HUP GI Clinic" {
-//                    print("HOLLAA")
-//                }
                 
                     consultItem.id = json[index]["id"].intValue
                     consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
@@ -265,6 +263,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
                     }
                 
             
+                
                 
                 }
             }

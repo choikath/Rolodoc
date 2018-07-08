@@ -51,9 +51,14 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
         messageTableView.separatorStyle = .none
         messageTableView.rowHeight = UITableViewAutomaticDimension
         messageTableView.estimatedRowHeight = 100
-       
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(note:)),
+            name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(note:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//
 //        configureTableView()
-//        self.messageTableView.reloadData()
+        self.messageTableView.reloadData()
     }
 
     //MARK: - TableView Datasource Methods
@@ -129,13 +134,43 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
         return 2
     }
     
+    @objc func keyboardWillShow(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            var frame = messageTableView.frame
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            UIView.setAnimationDuration(0.3)
+            frame.size.height -= keyboardSize.height
+            messageTableView.frame = frame
+            let path = IndexPath(row: 1, section: 0)
+            messageTableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
+            UIView.commitAnimations()
+        }
+    }
+
+    @objc func keyboardWillHide(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            var frame = tableView.frame
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            UIView.setAnimationDuration(0.2)
+            frame.size.height += keyboardSize.height
+            tableView.frame = frame
+            UIView.commitAnimations()
+        }
+    }
+
+
     func textViewDidBeginEditing(_ textView: UITextView) {
+        
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             ptMessage = ""
             textView.textColor = UIColor.black
         }
         
+        let path = IndexPath(row: 1, section: 0)
+        messageTableView.scrollToRow(at: path, at: UITableViewScrollPosition.top, animated: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -250,9 +285,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             print("########### + \(ptRoom)")
             print("########### + \(ptMessage)")
             
-            if self.ptMessage == placeholderMessage || self.ptRoom == "" {
-                controller.body = ""
-            } else { controller.body = "*Consult via Rolodoc*" + "\n" + "Patient in room: \(self.ptRoom). " + "\n" + "\(self.ptMessage)" }
+            if self.ptMessage == placeholderMessage {
+                self.ptMessage = ""
+            }
+            controller.body = "*Consult via Rolodoc*" + "\n" + "Patient in room: \(self.ptRoom). " + "\n" + "\(self.ptMessage)"
             controller.recipients = [consultRecord.number]
             controller.messageComposeDelegate = self
             
@@ -274,6 +310,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         //... handle sms screen actions
+        view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
         
         
