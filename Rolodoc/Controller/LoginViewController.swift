@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     @IBAction func loginButtonPresssed(_ sender: Any) {
-        if passwordField.text == "innov" {
+        if passwordField.text == "innov8" {
             defaults.set(true, forKey: "loginSaved")
             performSegue(withIdentifier: "goToHome", sender: self)
         }

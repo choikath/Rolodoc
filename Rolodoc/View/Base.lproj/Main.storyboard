@@ -74,7 +74,7 @@
             </objects>
             <point key="canvasLocation" x="703.20000000000005" y="-280.20989505247377"/>
         </scene>
-        <!--Compose-->
+        <!--New Consult-->
         <scene sceneID="gjL-cK-gsw">
             <objects>
                 <tableViewController id="HHU-7v-Uhm" customClass="TextPageViewController" customModule="Rolodoc" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,7 +128,7 @@
                             <outlet property="delegate" destination="HHU-7v-Uhm" id="hzb-Oq-b7X"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Compose" id="MMu-Yw-oLy">
+                    <navigationItem key="navigationItem" title="New Consult" id="MMu-Yw-oLy">
                         <barButtonItem key="leftBarButtonItem" title="Back" image="back-icon" id="1AR-7E-eXf">
                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

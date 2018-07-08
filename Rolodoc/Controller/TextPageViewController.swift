@@ -52,7 +52,6 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
         messageTableView.rowHeight = UITableViewAutomaticDimension
         messageTableView.estimatedRowHeight = 100
        
-        
 //        configureTableView()
 //        self.messageTableView.reloadData()
     }
@@ -79,7 +78,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
            let startnum = consultRecord.number.index(consultRecord.number.startIndex, offsetBy: 3)
            let endnum = consultRecord.number.index(consultRecord.number.startIndex, offsetBy: 6)
 
-            cell.providerLabel.text = "\(consultRecord.number.prefix(3))" + "-\(consultRecord.number[startnum..<endnum])-\(consultRecord.number.suffix(4)).  " + consultRecord.consultant  //"Sri Adusumalli, MD"
+            var phoneNumLabel = "Number unknown"
+            if consultRecord.number != "Number unknown" {
+                phoneNumLabel = "\(consultRecord.number.prefix(3))" + "-\(consultRecord.number[startnum..<endnum])-\(consultRecord.number.suffix(4))" }
+            cell.providerLabel.text = phoneNumLabel + " \(consultRecord.consultant)"  //"Sri Adusumalli, MD"
 //            if consultRecord.last_updated != "" {
 //                cell.updatedAtLabel.text = "Last updated " + consultRecord.last_updated + " ago" //"24 minutes ago"
 //            } else { cell.updatedAtLabel.text = "" }
@@ -90,13 +92,12 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             
             return cell
         }
+//        if indexPath.row == 1 {
+//            print("indexpath 1!")
+//            let cell = messageTableView.dequeueReusableCell(withIdentifier: "centerLabelCell", for: indexPath) as! CenterLabelCell  // since our cell is a custom data type
+//            return cell
+//        }
         if indexPath.row == 1 {
-            print("indexpath 1!")
-            let cell = messageTableView.dequeueReusableCell(withIdentifier: "centerLabelCell", for: indexPath) as! CenterLabelCell  // since our cell is a custom data type
-            return cell
-        }
-        if indexPath.row == 2 {
-            print("indexpath 2!")
 
             let cell = messageTableView.dequeueReusableCell(withIdentifier: "profileFieldCell", for: indexPath) as! ProfileFieldCell  // since our cell is a custom data type
             
@@ -105,7 +106,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             cell.textField.placeholder = "e.g. Rhodes #309a"
 
             cell.consultLabel.text = "Message to \(consultRecord.consultant): "
-            cell.consultText.text = "Hi \(consultRecord.consultant)!" + "\n" + "...Ask your question..."
+            cell.consultText.text = "\(consultRecord.instruc)"
             placeholderMessage = cell.consultText.text
             cell.consultText.delegate = self as UITextViewDelegate
 
@@ -125,7 +126,7 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
     
     //TODO: - number of rows in section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -172,10 +173,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
         if indexPath.row == 0 {
             return CGFloat(175.0)
         }
+//        if indexPath.row == 1 {
+//            return CGFloat(60.0)
+//        }
         if indexPath.row == 1 {
-            return CGFloat(60.0)
-        }
-        if indexPath.row == 2 {
             return CGFloat(400.0)
         }
         else {
@@ -248,7 +249,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
             let controller = MFMessageComposeViewController()
             print("########### + \(ptRoom)")
             print("########### + \(ptMessage)")
-            controller.body = "*Consult via Rolodoc*" + "\n" + "Patient in room: \(self.ptRoom). " + "\n" + "\(self.ptMessage)"
+            
+            if self.ptMessage == placeholderMessage || self.ptRoom == "" {
+                controller.body = ""
+            } else { controller.body = "*Consult via Rolodoc*" + "\n" + "Patient in room: \(self.ptRoom). " + "\n" + "\(self.ptMessage)" }
             controller.recipients = [consultRecord.number]
             controller.messageComposeDelegate = self
             

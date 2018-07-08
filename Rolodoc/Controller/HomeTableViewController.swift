@@ -162,7 +162,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath {
-        self.selectedRecord = self.dictionaryToLoad[self.sections[indexPath.section]]![indexPath.row]
+        
         return indexPath
     }
     
@@ -177,8 +177,24 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //                UIApplication.shared.openURL(url)
 //            }
 //        }
-        performSegue(withIdentifier: "goToTextPage", sender: indexPath.row)
-        tableView.deselectRow(at: indexPath, animated: true)
+        self.selectedRecord = self.dictionaryToLoad[self.sections[indexPath.section]]![indexPath.row]
+        
+        let singleRolodocURL = "http://www.pennrolodoc.com/listings/\(selectedRecord.id).json"
+        
+        Alamofire.request(singleRolodocURL, method: .get).responseJSON {  // makes the request in the background asynchronously
+            response in
+            if response.result.isSuccess {
+                let instrucJSON : JSON = JSON(response.result.value!)
+                self.selectedRecord.instruc = instrucJSON["instruc"].stringValue
+                
+            }
+            else {
+                print("Error \(String(describing: response.result.error))")
+
+            }
+            self.performSegue(withIdentifier: "goToTextPage", sender: indexPath.row)
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 
 
@@ -215,30 +231,44 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
             hospitalSelected = defaults.string(forKey: "defaultHospital")!
         } else { hospitalSelected = "HUP" }
         
+
+        
         consultArray = []
         for index in 0...(json.count-1) {
             let consultItem = ConsultRecord()
+            
             
             //filter list by entity
             //check that entity is contained either in hospital, description, or name of service....
             if json[index]["hosp"].stringValue == hospitalSelected  ||
                 json[index]["descrip"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil ||
-                json[index]["name"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil {
+                json[index]["name"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil || json[index]["hosp"] == nil {
                 
+//                if json[index]["name"] == "HUP GI Clinic" {
+//                    print("HOLLAA")
+//                }
+                
+                    consultItem.id = json[index]["id"].intValue
                     consultItem.name = json[index]["name"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
                     consultItem.descrip = json[index]["descrip"].stringValue
 //                print(consultItem.descrip)
                     consultItem.number = json[index]["num"]["number"].stringValue
                     consultItem.consultant = json[index]["num"]["consultant"].stringValue
-                    consultItem.instruc = json[index]["instruc"].stringValue
-                    print(json[index]["instruc"])
-                    consultItem.last_updated = json[index]["last_updated"].stringValue
+//                    consultItem.last_updated = json[index]["last_updated"].stringValue
                 
                     if consultItem.number != "" {
                         consultArray.append(consultItem)
+                    }
+                    else {
+                        consultItem.number = "Number unknown"
+                        consultArray.append(consultItem)
+                    }
+                
+            
+                
                 }
             }
-        }
+        
 
         arrayToLoad = consultArray
         convertToDictionary(arrayToConvert: arrayToLoad)
