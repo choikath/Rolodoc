@@ -34,12 +34,12 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     var hospitalSelected: String = "HUP"
     
-    let sections =  ["Cx", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    let sections =  ["*", "Cx", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     var consultDictionary = [String: [ConsultRecord] ]() // store initial loaded list to restore after searches
     var searchedDictionary = [String: [ConsultRecord] ]()
     var dictionaryToLoad = [String: [ConsultRecord] ]()
     var selectedRecord = ConsultRecord()
-    var consultsOnly = [String: [ConsultRecord] ]() // store items with 'consult' in name to pin to top
+//    var consultsOnly = [String: [ConsultRecord] ]() // store items with 'consult' in name to pin to top
 //    var currentIndexPath = IndexPath(row: 0, section: 0)
     
 //    let animations = ["ice_cream_animation", "loader_animation", "jumping_banano", "single_wave_loader", "loading_animation"]
@@ -90,7 +90,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     
     override func viewDidAppear(_ animated: Bool) {
-//        NewButton.addBadge(number: 1)
+        NewButton.addBadge(number: 1)
     }
     // Code to play sound with scroll
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -243,7 +243,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
             if json[index]["hosp"].stringValue == hospitalSelected  ||
                 json[index]["descrip"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil ||
                 json[index]["name"].stringValue.lowercased().range(of: hospitalSelected.lowercased()) != nil || json[index]["hosp"] == nil {
-            
+                
                 
                 
                     consultItem.id = json[index]["id"].intValue
@@ -251,7 +251,9 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
                     consultItem.descrip = json[index]["descrip"].stringValue
 //                print(consultItem.descrip)
                     consultItem.number = json[index]["num"]["number"].stringValue
-                    consultItem.consultant = json[index]["num"]["consultant"].stringValue
+                    consultItem.carrier_id = json[index]["num"]["carrier_id"].stringValue
+//                    print(consultItem.carrier_id)
+                consultItem.consultant = json[index]["num"]["consultant"].stringValue
 //                    consultItem.last_updated = json[index]["last_updated"].stringValue
                 
                     if consultItem.number != "" {
@@ -282,6 +284,21 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
     
     func convertToDictionary(arrayToConvert: Array<ConsultRecord>) {
         var tempDictionary = [String: [ConsultRecord] ]()
+        
+        // Pin important shortcuts/announcements to top
+        var shortcuts = [ConsultRecord]()
+        var needlestick = ConsultRecord()
+            needlestick.name = "Needstick Emergency"
+            needlestick.consultant = "On-call 7a-7p, M-F."
+            needlestick.descrip = "Do NOW: 1) Report incident via form on intranet (gets other steps rolling).  2) Draw patient 'Occ med order panel' labs as STAT.  3) Call if you cannot make it to the occ med clinic within the next 1-2 hrs and patient has known HIV or you've had high risk exposure, to get HIV Rx."
+            needlestick.number = "6143972666"
+            needlestick.carrier_id = "1"
+        var adverseEvent = ConsultRecord()
+            adverseEvent.name = "Adverse Event Team"
+            adverseEvent.consultant = "2157465200"
+            
+        shortcuts.append(needlestick)
+        tempDictionary["*"] = shortcuts
         
         // Pull out all with 'consult' in title to pin to top
         let filteredArray = arrayToConvert.filter() { $0.name.localizedCaseInsensitiveContains("consult") }

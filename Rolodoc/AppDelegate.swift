@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Drift.setup("zvh33p878tp2")
         Drift.registerUser("Penn Provider", email: "pennagent@gmail.com"); Drift.showArchivedCampaignsForEndUser(false)
         
-        //for testing reset to false:
-//        let defaults = UserDefaults.standard
-//        defaults.set(false, forKey: "loginSaved")
+//        for testing reset to false:
+        let defaults = UserDefaults.standard
+        defaults.set(false, forKey: "loginSaved")
         
         
         var identifier: String = ""

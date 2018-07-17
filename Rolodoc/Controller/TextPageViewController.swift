@@ -47,6 +47,8 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
         messageTableView.register(UINib(nibName: "ProfileFieldCell", bundle: nil), forCellReuseIdentifier: "profileFieldCell")
         print("profilefieldcell registered!")
 
+        messageTableView.register(UINib(nibName: "ConsultListingCell", bundle: nil), forCellReuseIdentifier: "consultListing")
+        print("consultlistingcell registered!")
         
         messageTableView.separatorStyle = .none
         messageTableView.rowHeight = UITableViewAutomaticDimension
@@ -102,9 +104,10 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
 //            let cell = messageTableView.dequeueReusableCell(withIdentifier: "centerLabelCell", for: indexPath) as! CenterLabelCell  // since our cell is a custom data type
 //            return cell
 //        }
-        if indexPath.row == 1 {
+        if indexPath.row == 1 && consultRecord.carrier_id != "" {
 
             let cell = messageTableView.dequeueReusableCell(withIdentifier: "profileFieldCell", for: indexPath) as! ProfileFieldCell  // since our cell is a custom data type
+            
             
             cell.delegate = self
             cell.titleLabel.text = "Blg and Room #"
@@ -123,6 +126,19 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
 //            cell.consultText.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
 
             return cell
+        }
+        if indexPath.row == 1 && consultRecord.carrier_id == "" {
+            let cell = messageTableView.dequeueReusableCell(withIdentifier: "consultListing", for: indexPath) as! ConsultListingCell
+
+            cell.title?.text = "*Number cannot receive textpages. Please call.*"
+            cell.phoneNum.text = ""
+            cell.descrip.text = ""
+          
+            sendTextPageButton.isHidden = true
+            cancelTextPageButton.isHidden = true
+            return cell
+            
+            
         }
         else {return cell}
     }
@@ -264,6 +280,8 @@ class TextPageViewController: UITableViewController, UITextViewDelegate, UITextF
     @IBAction func backNavPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
     }
+    @IBOutlet weak var sendTextPageButton: UIButton!
+    @IBOutlet weak var cancelTextPageButton: UIButton!
     
     @IBAction func cancelTextPage(_ sender: Any) {
         self.dismiss(animated: true) {
