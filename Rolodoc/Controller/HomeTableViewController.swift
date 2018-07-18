@@ -45,6 +45,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
 //    let animations = ["ice_cream_animation", "loader_animation", "jumping_banano", "single_wave_loader", "loading_animation"]
     var animationView = LOTAnimationView(name: "ice_cream_animation")
 
+
     
     
     @IBOutlet weak var NewButton: UIBarButtonItem!
@@ -67,6 +68,7 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
                 }
         
         
+        
         getConsultData(url: ROLODOC_URL)
 //        defaults.set("HUP", forKey: "defaultHospital")
         tableView.delegate = self
@@ -85,12 +87,17 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, Modal
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         Drift.load()
-        
+
+        SNSService.shared.configure()
+        if !isKeyPresentInUserDefaults(key: "registered") {
+            SNSService.shared.register()
+            defaults.set("true", forKey: "registered")
+        }
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
-        NewButton.addBadge(number: 1)
+//        NewButton.addBadge(number: 1)
     }
     // Code to play sound with scroll
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {

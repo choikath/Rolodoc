@@ -34,7 +34,10 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
         getNewsData(url: newsUrl)
         tableView.rowHeight = 80
         tableView.delegate = self
-        
+        PersistenceService.shared.getNewsItems { (newsItems) in
+            self.newsArray = newsItems
+            self.tableView.reloadData()
+        }
     }
 
     @IBAction func hfPressed(_ sender: Any) {
@@ -150,6 +153,14 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    func insert(_ newsItem: NewsItem) {
+        newsArray.append(newsItem)
+        
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    
     func updateNewsData(json: JSON) {
         
 //        print("json: \(json)")
@@ -170,11 +181,11 @@ class WhatsHot: UITableViewController, UIGestureRecognizerDelegate {
                 print(json)
          for index in 0...19 {
             
-            let newsItem = NewsItem()
+            var newsItem = NewsItem(index: "", title: "", source: "")
                 newsItem.title = json["articles"][index]["title"].stringValue    //swiftyjson made this simpler to parse JSON.  we're optional binding
-                newsItem.description = json["articles"][index]["description"].stringValue
+//                newsItem.description = json["articles"][index]["description"].stringValue
             newsItem.source = json["articles"][index]["source"]["name"].stringValue
-             newsItem.urlToImage = json["articles"][index]["urlToImage"].stringValue
+//             newsItem.urlToImage = json["articles"][index]["urlToImage"].stringValue
             
                 newsArray.append(newsItem)
         }

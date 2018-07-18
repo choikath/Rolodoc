@@ -11,6 +11,7 @@ import CoreData
 //import TwitterKit
 import Drift
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -45,8 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
         
+        UNService.shared.authorize()
+        
         return true
     
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("did register for notifications")
+        let token = deviceToken.reduce(""){$0 + String(format: "%02X", $1) }
+        print(token)
+        User.current.token = token
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
